@@ -1,6 +1,7 @@
 import youtube_dl
 import discord
 import asyncio
+import time
 from requests import get
 from environs import Env
 

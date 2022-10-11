@@ -2,6 +2,7 @@ import discord
 import asyncio
 import random
 import nsfw_dl
+import time
 import cv2
 import os
 from datetime import datetime
@@ -578,6 +579,7 @@ class Function(commands.Cog):
 
     @commands.command(pass_context=True, name="ReadQR", aliases=['rqr', 'readqr'], help="Reads a QR code")
     async def read_qr(self, ctx):
+        start = time.time()
         try:
             embed = discord.Embed(title="Read QR")
             for attachment in ctx.message.attachments:
@@ -600,7 +602,9 @@ class Function(commands.Cog):
                     img = cv2.imread("qr.png")
                     detector = cv2.QRCodeDetector()
                     data, bbox, straight_qrcode = detector.detectAndDecode(img)
+                    end_time = time.time() - start
                     embed.add_field(name="Message from your QR Code", value="**```" + data + "```**", inline=False)
+                    embed.add_field(name="Time", value="**`" + str(round(end_time, 2)) + "`**", inline=False)
                     embed.set_footer(text="Read QR Success")
                     embed.colour = discord.Colour.purple()
                     embed.timestamp = datetime.utcnow()
