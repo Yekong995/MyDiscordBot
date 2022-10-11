@@ -1,0 +1,13 @@
+discord.py >= 2.0.1
+aiohttp >= 3.7.4.post0
+async-timeout >= 3.0.1
+attrs >= 21.2.0
+chardet >= 4.0.0
+multidict >= 5.1.0
+typing-extensions >= 4.0.0
+yarl >= 1.6.3
+requests >= 2.26.0
+youtube_dl >= 2021.12.0
+nsfw_dl == 0.4.1
+environs >= 9.3.4
+opencv-python >= 4.6.0.0
