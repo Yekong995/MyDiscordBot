@@ -604,7 +604,7 @@ class Function(commands.Cog):
                     data, bbox, straight_qrcode = detector.detectAndDecode(img)
                     end_time = time.time() - start
                     embed.add_field(name="Message from your QR Code", value="**```" + data + "```**", inline=False)
-                    embed.add_field(name="Time", value="**`" + str(round(end_time, 2)) + "`**", inline=False)
+                    embed.add_field(name="Time", value="**`" + str(round(end_time, 2)) + "s`**", inline=False)
                     embed.set_footer(text="Read QR Success")
                     embed.colour = discord.Colour.purple()
                     embed.timestamp = datetime.utcnow()
