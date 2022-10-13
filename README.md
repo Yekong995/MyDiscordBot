@@ -6,7 +6,7 @@ This is a Discord bot that I made for fun. It is a work in progress, and I will 
 
 For requirements, please refer to [Requirements](#Requirements).
 
-For installation, please refer to [Installation](#Installation).
+For using, please refer to [How To Use](#How-To-Use).
 
 ## How To Use
 
@@ -17,8 +17,6 @@ For installation, please refer to [Installation](#Installation).
 > - [Python 3.8+](https://www.python.org/downloads/)
 > - [PIP](https://pip.pypa.io/en/stable/installation/)
 > - [FFMPEG](https://ffmpeg.org/download.html)
-
-## Installation
 
 All the requirements package:
 > - [Discord.py](https://discordpy.readthedocs.io/en/latest/intro.html#installing)
