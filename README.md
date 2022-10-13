@@ -10,6 +10,11 @@ For using, please refer to [How To Use](#How-To-Use).
 
 ## How To Use
 
+OS      |Python Version
+--------|---------------
+Windows |Python3.8+
+Linux   |Python3 <br>Use command`sudo apt install python3`
+
     pip install -r requirements.txt
     python __main__.py
 
