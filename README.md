@@ -64,17 +64,17 @@ Package Name                                                                  |V
 
 The following are the necessary permissions:
 
-Permission
----------------------------
-Manage Role
-Manage Channels
-Kick Members
-Ban Members
-Read Messages/View Channels
-Send Messages
-Manage Messages
-Embed Links
-Attach Files
-Read Message History
-Connect
-Speak
+Permission                 |
+---------------------------|
+Manage Role                |
+Manage Channels            |
+Kick Members               |
+Ban Members                |
+Read Messages/View Channels|
+Send Messages              |
+Manage Messages            |
+Embed Links                |
+Attach Files               |
+Read Message History       |
+Connect                    |
+Speak                      |
