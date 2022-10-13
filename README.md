@@ -8,6 +8,8 @@ For requirements, please refer to [Requirements](#Requirements).
 
 For using, please refer to [How To Use](#How-To-Use).
 
+How to setup token. Please refer to [Setup Token](#Token).
+
 ## How To Use
 
 OS      |Python Version
@@ -39,3 +41,19 @@ Package Name                                                                  |V
 [requests](https://pypi.org/project/requests/)                                |2.26.0+
 [environs](https://pypi.org/project/environs/)                                |9.3.4+
 [opencv-python](https://pypi.org/project/opencv-python/)                      |4.6.0.0+
+
+## Token
+
+    1. Go to [Dsicord Developer Portal](https://github.com/Yekong995/MyDiscordBot.git)
+    2. Click at the `New Application` button to create a new application
+    ![New_Application_Button](./image/capp.png)
+    3. Click at the `Bot` option
+    4. Open all intents option
+    ![Option_Intents](./image/intents.png)
+    5. Press the `Reset Token` to show the token of your bot and copy it
+    6. Go to `OAuth2` option and go to `URL Generator`
+    7. In the scopes select `bot`
+    8. Go down select `Administrator` (Recommended)
+    9. Create a new file name `.env`
+    10. Open `.env` with any editor and input `DISCORD_TOKEN=<your token here>`
+    11. Save & Close the file and run it. [How To Run](#How-To-Use)
