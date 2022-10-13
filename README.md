@@ -55,7 +55,26 @@ Package Name                                                                  |V
 5. Press the `Reset Token` to show the token of your bot and copy it
 6. Go to `OAuth2` option and go to `URL Generator`
 7. In the scopes select `bot`
-8. Go down select `Administrator` (Recommended)
+8. Go down select `Administrator` (Recommended) else see [Permission](#Permission) to choices
 9. Create a new file name `.env`
 10. Open `.env` with any editor and input `DISCORD_TOKEN=<your token here>`
 11. Save & Close the file and run it. [How To Run](#How-To-Use)
+
+## Permission
+
+The following are the necessary permissions:
+
+Permission
+---------------------------
+Manage Role
+Manage Channels
+Kick Members
+Ban Members
+Read Messages/View Channels
+Send Messages
+Manage Messages
+Embed Links
+Attach Files
+Read Message History
+Connect
+Speak
