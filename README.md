@@ -23,23 +23,19 @@ Linux   |Python3 <br>Use command `sudo apt install python3`
 > - [PIP](https://pip.pypa.io/en/stable/installation/)
 > - [FFMPEG](https://ffmpeg.org/download.html)
 
+All the requirements package:
+
 Package Name                                                                  |Version
 ------------------------------------------------------------------------------|-------
 [Discord.py](https://discordpy.readthedocs.io/en/latest/intro.html#installing)|2.0.1+
 [youtube_dl](https://pypi.org/project/youtube_dl)                             |2021.12.0+
-
-All the requirements package:
-> - [Discord.py](https://discordpy.readthedocs.io/en/latest/intro.html#installing)
-> - [youtube_dl](https://pypi.org/project/youtube_dl/)
-> - [aiohttp](https://pypi.org/project/aiohttp/)
-> - [asyncio](https://pypi.org/project/asyncio/)
-> - [async_timeout](https://pypi.org/project/async-timeout/)
-> - [attrs](https://pypi.org/project/attrs/)
-> - [chardet](https://pypi.org/project/chardet/)
-> - [multidict](https://pypi.org/project/multidict/)
-> - [typing_extensions](https://pypi.org/project/typing-extensions/)
-> - [yarl](https://pypi.org/project/yarl/)
-> - [requests](https://pypi.org/project/requests/)
-> - [nsfw_dl](https://pypi.org/project/nsfw-dl/)
-> - [environs](https://pypi.org/project/environs/)
-> - [opencv-python](https://pypi.org/project/opencv-python/)
+[aiohttp](https://pypi.org/project/aiohttp/)                                  |3.7.4.post0+
+[async_timeout](https://pypi.org/project/async-timeout/)                      |3.0.1+
+[attr](https://pypi.org/project/attrs/)                                       |21.2.0+
+[chardet](https://pypi.org/project/chardet/)                                  |4.0.0+
+[multidict](https://pypi.org/project/multidict/)                              |5.1.0+
+[typing_extensions](https://pypi.org/project/typing-extensions/)              |4.0.0+
+[yarl](https://pypi.org/project/yarl/)                                        |1.6.3+
+[requests](https://pypi.org/project/requests/)                                |2.26.0+
+[environs](https://pypi.org/project/environs/)                                |9.3.4+
+[opencv-python](https://pypi.org/project/opencv-python/)                      |4.6.0.0+
