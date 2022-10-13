@@ -10,25 +10,8 @@ For installation, please refer to [Installation](#Installation).
 
 ## How To Use
 
-### **Linux**
-
-Before use on Linux, you must install the following packages:
-
-    
-    sudo apt install python3 python3-pip
-    sudo apt install ffmpeg
-    pip3 install -r requirements.txt
-    python3 __main__.py
-
-### **Windows**
-
-If your ***.py** file has set default application just like this:
-
-![Windows_da](image/Windows-default-app.png)
-
-Enter this on your terminal to use it:
-
-    __main__.py
+    pip install -r requirements.txt
+    python __main__.py
 
 ## Requirements
 > - [Python 3.8+](https://www.python.org/downloads/)
