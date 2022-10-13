@@ -20,10 +20,6 @@ For installation, please refer to [Installation](#Installation).
 
 ## Installation
 
-To install all the requirements package, run this command:
-
-    pip install -r requirements.txt
-
 All the requirements package:
 > - [Discord.py](https://discordpy.readthedocs.io/en/latest/intro.html#installing)
 > - [youtube_dl](https://pypi.org/project/youtube_dl/)
