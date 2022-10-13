@@ -10,6 +10,8 @@ For using, please refer to [How To Use](#How-To-Use).
 
 How to setup token. Please refer to [Setup Token](#Token).
 
+Bot default prefix `>`. How to change prefix. -> [Prefix Setup](#Prefix-Setup)
+
 ## How To Use
 
 OS      |Python Version
@@ -78,3 +80,15 @@ Attach Files               |
 Read Message History       |
 Connect                    |
 Speak                      |
+
+## Prefix Setup
+
+Change `command_prefix="<your_prefix_here>"` in line 21 like this:
+
+    21| client = Bot(command_prefix=">", intents=intents, description="My Command List")
+        
+### In Discord Usage
+
+Type `>help` to show all the commands. (Commands will be displayed based on permissions)
+
+> NOTE: If you change your prefix do like this `<your_prefix>help`
