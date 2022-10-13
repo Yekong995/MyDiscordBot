@@ -6,7 +6,7 @@ import time
 import cv2
 import os
 from datetime import datetime
-from requests import Session
+from requests import Session, get
 from func import YTDLSource, search, get_token
 from discord.ext.commands import Bot, has_permissions
 from discord.ext import commands
@@ -613,6 +613,26 @@ class Function(commands.Cog):
 
         except Exception as e:
             print(e)
+            
+    @commands.command(pass_context=True, name="Ping", aliases=['ping'], help="Ping a website")
+    async def ping_(self, ctx, url):
+        """
+            :url: A url
+        """
+        embed = discord.Embed(title="Ping Response")
+        message = await ctx.send(f"Pinging {url}, please wait for a while")
+        try:
+            url_engine = get(url=url, timeout=5).status_code
+            if url_engine == 200:
+                embed.add_field(name="Status Code", value='**`200`**', inline=False)
+                embed.color = discord.Colour.green()
+                embed.add_field(name="Status", value=f"**```Website: {url} Online```**", inline=False)
+                embed.timestamp = datetime.utcnow()
+                embed.set_footer(text=f"Responses: {url_engine}")
+                await message.edit(content="", embed=embed)
+        except Exception as e:
+            print(e)
+            await ctx.send(e)
 
 
 async def main():
