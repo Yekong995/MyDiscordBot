@@ -13,7 +13,7 @@ For using, please refer to [How To Use](#How-To-Use).
 OS      |Python Version
 --------|---------------
 Windows |Python3.8+
-Linux   |Python3 <br>Use command`sudo apt install python3`
+Linux   |Python3 <br>Use command `sudo apt install python3`
 
     pip install -r requirements.txt
     python __main__.py
@@ -22,6 +22,11 @@ Linux   |Python3 <br>Use command`sudo apt install python3`
 > - [Python 3.8+](https://www.python.org/downloads/)
 > - [PIP](https://pip.pypa.io/en/stable/installation/)
 > - [FFMPEG](https://ffmpeg.org/download.html)
+
+Package Name                                                                  |Version
+------------------------------------------------------------------------------|-------
+[Discord.py](https://discordpy.readthedocs.io/en/latest/intro.html#installing)|2.0.1+
+[youtube_dl](https://pypi.org/project/youtube_dl)                             |2021.12.0+
 
 All the requirements package:
 > - [Discord.py](https://discordpy.readthedocs.io/en/latest/intro.html#installing)
