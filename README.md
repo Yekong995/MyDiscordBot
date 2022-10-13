@@ -17,7 +17,7 @@ OS      |Python Version
 Windows |Python3.8+
 Linux   |Python3 <br>Use command `sudo apt install python3`
 
-> NOTE: Linux user plaease use `sudo apt install python3-pip` to install pip3 before use it.
+> NOTE: Linux user please use `sudo apt install python3-pip` to install pip3 before use it.
 
     pip install -r requirements.txt
     python __main__.py
