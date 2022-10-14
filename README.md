@@ -2,7 +2,7 @@
 
 ## Description
 
-[![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)](https://www.python.org/downloads/)
+[![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 
 This is a Discord bot that I made for fun. It is a work in progress, and I will be adding more features as I go.
 
