@@ -2,6 +2,9 @@ import youtube_dl
 import discord
 import asyncio
 import time
+import requests
+import json
+import urllib
 from requests import get
 from environs import Env
 
@@ -66,3 +69,11 @@ def get_token() -> str:
     env = Env()
     env.read_env()
     return env.str("DISCORD_TOKEN")
+
+def detect_url(message):
+    env = Env()
+    env.read_env()
+    api_url = "https://ipqualityscore.com/api/json/url/" + env.str("IPQUALITYSCORE_API_KEY") + "/"
+    encoded_url = urllib.parse.quote(message, safe='')
+    data = requests.get(api_url + encoded_url)
+    return json.dumps(data.json(), indent=4)
