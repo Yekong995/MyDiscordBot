@@ -35,7 +35,7 @@ All the requirements package:
 
 Package Name                                                                  |Version
 ------------------------------------------------------------------------------|-------
-[Discord.py](https://discordpy.readthedocs.io/en/latest/intro.html#installing)|2.2.0+
+[Discord.py](https://discordpy.readthedocs.io/en/latest/intro.html#installing)|2.1.0+
 [youtube_dl](https://pypi.org/project/youtube_dl)                             |2021.12.0+
 [aiohttp](https://pypi.org/project/aiohttp/)                                  |3.7.4.post0+
 [async_timeout](https://pypi.org/project/async-timeout/)                      |3.0.1+

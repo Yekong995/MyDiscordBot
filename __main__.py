@@ -474,9 +474,8 @@ class Moderation(commands.Cog):
 
     @commands.command(pass_context=True, name="DeleteRole", aliases=['deleterole', 'dr'], help="Deletes a role")
     @has_permissions(manage_roles=True)
-    async def delete_role(self, ctx, *, name):
-        role = discord.utils.get(ctx.guild.roles, name=name)
-        await self.bot.delete_role(ctx.message.server, role)
+    async def delete_role(self, ctx, *, name: discord.Role):
+        await name.delete()
         await ctx.send(f'**{name} has been deleted**')
 
     @delete_role.error
