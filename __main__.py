@@ -2,6 +2,7 @@ import discord
 import asyncio
 import random
 import nsfw_dl
+import json
 import time
 import cv2
 import os
@@ -10,6 +11,7 @@ from requests import Session, get
 from func import YTDLSource, search, get_token
 from discord.ext.commands import Bot, has_permissions
 from discord.ext import commands
+from discord import app_commands
 
 # Bot token
 MyToken = get_token()
@@ -632,6 +634,58 @@ class Function(commands.Cog):
         except Exception as e:
             print(e)
             await ctx.send(e)
+
+    @commands.command(pass_context=True, name="AddSchedule", aliases=['addschedule', 'as'], help="Add a schedule")
+    async def add_schedule(self, ctx, *, name):
+        """
+            :name: Name of the schedule
+        """
+        id  = random.randint(100000, 999999)
+        embed = discord.Embed(title="Add Schedule ID: " + str(id))
+        embed.add_field(name="Name", value="**`" + name + "`**", inline=False)
+        embed.add_field(name="Schedule", value="**`" + str(datetime.utcnow()) + "`**", inline=False)
+        embed.set_footer(text="Add Schedule Success")
+        embed.colour = discord.Colour.purple()
+        embed.timestamp = datetime.utcnow()
+        await ctx.send(embed=embed)
+        with open("schedule.txt", 'a+') as f:
+            f.write(str(id) + " " + name + " " + str(datetime.utcnow()) + "\n")
+            f.close()
+
+    @commands.command(pass_context=True, name="RemoveSchedule", aliases=['removeschedule', 'rs'], help="Remove a schedule")
+    async def remove_schedule(self, ctx, *, ID):
+        """
+            :name: Name of the schedule
+        """
+        with open("schedule.txt", 'r') as f:
+            lines = f.readlines()
+            f.close()
+        with open("schedule.txt", 'w') as f:
+            for line in lines:
+                if line.split()[0] != ID:
+                    f.write(line)
+                name = line.split()[1]
+                schedule = line.split()[2]
+            f.close()
+        embed = discord.Embed(title="Remove Schedule ID: " + str(ID))
+        embed.add_field(name="Name", value="**`" + name + "`**", inline=False)
+        embed.add_field(name="Created Date", value="**`" + schedule + "`**", inline=False)
+        embed.set_footer(text="Remove Schedule Success")
+        embed.colour = discord.Colour.purple()
+        embed.timestamp = datetime.utcnow()
+        await ctx.send(embed=embed)
+
+    @commands.command(pass_context=True, name="Schedule", aliases=['schedule'], help="Show all schedule")
+    async def schedule_(self, ctx):
+        embed = discord.Embed(title="Schedule")
+        with open("schedule.txt", 'r') as f:
+            lines = f.readlines()
+            for line in lines:
+                embed.add_field(name="ID: " + line.split()[0], value="**`" + line.split()[1] + "`**", inline=False)
+        embed.set_footer(text="Schedule")
+        embed.colour = discord.Colour.purple()
+        embed.timestamp = datetime.utcnow()
+        await ctx.send(embed=embed)
 
 
 async def main():
