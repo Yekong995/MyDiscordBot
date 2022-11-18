@@ -2,7 +2,6 @@ import discord
 import asyncio
 import random
 import nsfw_dl
-import json
 import time
 import cv2
 import os
@@ -11,7 +10,7 @@ from requests import Session, get
 from func import YTDLSource, search, get_token
 from discord.ext.commands import Bot, has_permissions
 from discord.ext import commands
-from discord import app_commands
+from pathlib import Path
 
 # Bot token
 MyToken = get_token()
@@ -577,6 +576,20 @@ class Function(commands.Cog):
 
     def __init__(self, bot):
         self.bot = bot
+        file = Path("msg_channel.txt")
+        file.touch(exist_ok=True)
+
+        try:
+            with open('msg_channel.txt', 'r') as f:
+                msg_channel = f.readlines()
+                for i in msg_channel:
+                    if i.split("=")[0] == "join":
+                        self.join_channel = int(i.split("=")[1])
+                    elif i.split("=")[0] == "leave":
+                        self.leave_channel = int(i.split("=")[1])
+        except Exception as e:
+            self.join_channel = None
+            self.leave_channel = None
 
     @commands.command(pass_context=True, name="ReadQR", aliases=['rqr', 'readqr'], help="Reads a QR code")
     async def read_qr(self, ctx):
@@ -686,6 +699,84 @@ class Function(commands.Cog):
         embed.colour = discord.Colour.purple()
         embed.timestamp = datetime.utcnow()
         await ctx.send(embed=embed)
+
+    @commands.command(pass_context=True, name="SetJoinChannel", aliases=['setjoinchannel', 'sjc'], help="Set join channel")
+    @has_permissions(administrator=True)
+    async def set_join_channel(self, ctx, channel: discord.TextChannel):
+        """
+            :channel: A channel
+        """
+        self.join_channel = channel.id
+        with open("msg_channel.txt", "r") as f:
+            lines = f.readlines()
+            f.close()
+        with open("msg_channel.txt", "w") as f:
+            for line in lines:
+                if line.split("=")[0] == "join":
+                    f.write("join=" + str(channel.id) + "\n")
+                else:
+                    f.write(line)
+            f.close()
+        embed = discord.Embed(title="Set Join Channel")
+        embed.add_field(name="Channel", value="**`" + channel.name + "`**", inline=False)
+        embed.set_footer(text="Set Join Channel Success")
+        embed.colour = discord.Colour.purple()
+        embed.timestamp = datetime.utcnow()
+        await ctx.send(embed=embed)
+
+    @commands.command(pass_context=True, name="SetLeaveChannel", aliases=['setleavechannel', 'slc'], help="Set leave channel")
+    @has_permissions(administrator=True)
+    async def set_leave_channel(self, ctx, channel: discord.TextChannel):
+        """
+            :channel: A channel
+        """
+        self.leave_channel = channel.id
+        with open("msg_channel.txt", "r") as f:
+            lines = f.readlines()
+            f.close()
+        with open("msg_channel.txt", "w") as f:
+            for line in lines:
+                if line.split("=")[0] == "leave":
+                    f.write("leave=" + str(channel.id) + "\n")
+                else:
+                    f.write(line)
+            f.close()
+        embed = discord.Embed(title="Set Leave Channel")
+        embed.add_field(name="Channel", value="**`" + channel.name + "`**", inline=False)
+        embed.set_footer(text="Set Leave Channel Success")
+        embed.colour = discord.Colour.purple()
+        embed.timestamp = datetime.utcnow()
+        await ctx.send(embed=embed)
+
+    @commands.Cog.listener()
+    async def on_member_join(self, member):
+        channel = self.bot.get_channel(self.join_channel)
+        await channel.send(f"Welcome {member.mention} to {member.guild.name}!")
+    
+    @commands.Cog.listener()
+    async def on_member_remove(self, member):
+        channel = self.bot.get_channel(self.leave_channel)
+        await channel.send(f"{member.mention} has left {member.guild.name}!")
+
+    @set_join_channel.error
+    async def set_join_channel_error(self, ctx, error):
+        if isinstance(error, commands.MissingPermissions):
+            await ctx.send("You don't have permission to use this command!")
+        elif isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send("Please specify a channel!")
+        else:
+            print(error)
+            await ctx.send("An error has occurred!")
+    
+    @set_leave_channel.error
+    async def set_leave_channel_error(self, ctx, error):
+        if isinstance(error, commands.MissingPermissions):
+            await ctx.send("You don't have permission to use this command!")
+        elif isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send("Please specify a channel!")
+        else:
+            print(error)
+            await ctx.send("An error has occurred!")
 
 
 async def main():
