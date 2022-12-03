@@ -34,9 +34,10 @@ Linux   |Python3 <br>Use command `sudo apt install python3`
 All the requirements package:
 
 Package Name                                                                  |Version
-------------------------------------------------------------------------------|-------
+:-----------------------------------------------------------------------------|:------
 [Discord.py](https://discordpy.readthedocs.io/en/latest/intro.html#installing)|2.1.0+
 [youtube_dl](https://pypi.org/project/youtube_dl)                             |2021.12.0+
+[pyotp](https://pypi.org/project/pyotp/) |2.6.0+
 [aiohttp](https://pypi.org/project/aiohttp/)                                  |3.7.4.post0+
 [async_timeout](https://pypi.org/project/async-timeout/)                      |3.0.1+
 [attr](https://pypi.org/project/attrs/)                                       |21.2.0+
@@ -94,3 +95,52 @@ Change `command_prefix="<your_prefix_here>"` in line 21 like this:
 Type `>help` to show all the commands. (Commands will be displayed based on permissions)
 
 > NOTE: If you change your prefix do like this `<your_prefix>help`
+
+
+
+## OTP USAGE
+
+First edit `.env.template`
+
+Content: 
+
+```
+DISCORD_TOKEN = ""
+IPQUALITYSCORE_API_KEY = ""
+OWNER_SECRET_KEY = "<Edit Me>"
+```
+
+After edited this file rename it to `.env`
+
+Now go to `func.py` and go to last line:
+
+```python	
+81|
+82| def genereate_otp_qr():
+83|    env = Env()
+84|    env.read_env()
+85|    owner = env.str("OWNER_SECRET_KEY")
+86|    totp = pyotp.totp.TOTP(owner).provisioning_uri(name="OrenBotSchedule", issuer_name="OrenBot")
+87|    print(totp)
+88|    qrcode.make(totp).save("qrcode.png")
+89|
+```
+
+Edited:
+```pytho
+81|
+82| def genereate_otp_qr():
+83|    env = Env()
+84|    env.read_env()
+85|    owner = env.str("OWNER_SECRET_KEY")
+86|    totp = pyotp.totp.TOTP(owner).provisioning_uri(name="OrenBotSchedule", issuer_name="OrenBot")
+87|    print(totp)
+88|    qrcode.make(totp).save("qrcode.png")
+89| generate_otp_qr()
+```
+
+After that run `python3 func.py`(Linux) `py func.py` or `python func.py`(Windows)
+
+You will get a QRcode in root directory. Use your Google authenticator app scan it.
+
+Now every time run schedule command you will need input OTP that generate with Google authenticator app
