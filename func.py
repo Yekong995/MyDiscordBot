@@ -20,7 +20,8 @@ ytdl_format_options = {
     'quiet': True,
     'no_warnings': True,
     'default_search': 'auto',
-    'source_address': '0.0.0.0',  # bind to ipv4 since ipv6 addresses cause issues sometimes
+    # bind to ipv4 since ipv6 addresses cause issues sometimes
+    'source_address': '0.0.0.0',
 }
 
 ffmpeg_options = {
@@ -59,7 +60,8 @@ def search(query):
         try:
             get(query)
         except:
-            search_ = ydl.extract_info(f"ytsearch:{query}", download=False)['entries'][0]
+            search_ = ydl.extract_info(f"ytsearch:{query}", download=False)[
+                'entries'][0]
         else:
             search_ = ydl.extract_info(query, download=False)
 
@@ -71,18 +73,44 @@ def get_token() -> str:
     env.read_env()
     return env.str("DISCORD_TOKEN")
 
+
 def detect_url(message):
     env = Env()
     env.read_env()
-    api_url = "https://ipqualityscore.com/api/json/url/" + env.str("IPQUALITYSCORE_API_KEY") + "/"
-    encoded_url = urllib.parse.quote(message, safe='')
-    data = requests.get(api_url + encoded_url)
-    return json.dumps(data.json(), indent=4)
+    apikey = env.str("GOOGLE_SAFE_BROWSING_API_KEY")
+    api_url = "https://safebrowsing.googleapis.com/v4/threatMatches:find"
+    content_json = {
+        "client": {
+            "clientId": "OrenBot",
+            "clientVersion": "0.0.1"
+        },
+        "threatInfo": {
+            "threatTypes": ["MALWARE", "SOCIAL_ENGINEERING"],
+            "platformTypes": ["ANY_PLATFORM"],
+            "threatEntryTypes": ["URL"],
+            "threatEntries": [
+                {"url": message},
+            ]
+        }
+    }
+    result = requests.post(api_url, json=(content_json), params={'key': apikey})
+    re_json = result.json()
+    if re_json == {}:
+        return False
+    else:
+        if "matches" in re_json:
+            return True + " " + re_json["matches"][0]["threatType"]
+        else:
+            return False
+
 
 def genereate_otp_qr():
     env = Env()
     env.read_env()
     owner = env.str("OWNER_SECRET_KEY")
-    totp = pyotp.totp.TOTP(owner).provisioning_uri(name="OrenBotSchedule", issuer_name="OrenBot")
+    totp = pyotp.totp.TOTP(owner).provisioning_uri(
+        name="OrenBotSchedule", issuer_name="OrenBot")
     print(totp)
     qrcode.make(totp).save("qrcode.png")
+
+detect_url("http://0wa477gswk848mbc7309gd.mattsenior1.repl.co")
