@@ -5,11 +5,12 @@ import nsfw_dl
 import time
 import cv2
 import os
+import re
 from environs import Env
 from pyotp import TOTP
 from datetime import datetime
 from requests import Session, get
-from func import YTDLSource, search, get_token
+from func import YTDLSource, search, get_token, detect_url
 from discord.ext.commands import Bot, has_permissions
 from discord.ext import commands
 
@@ -21,6 +22,7 @@ intents.message_content = True
 
 # description & command_prefix
 client = Bot(command_prefix=">", intents=intents, description="My Command List")
+url_regex = re.compile(r'(https?://\S+)')
 
 
 @client.event
@@ -28,6 +30,25 @@ async def on_ready():
     activity = discord.Game(name=">help", type=3)
     await client.change_presence(status=discord.Status.idle, activity=activity)
     print("Bot is ready")
+
+@client.event
+async def on_message(message):
+    print(message.content)
+    if message.author == client.user:
+        return
+
+    if url_regex.search(message.content):
+        url = url_regex.search(message.content).group(1)
+        result = detect_url(url)
+        if result != False:
+            embed = discord.Embed()
+            embed.add_field(name="URL Detected", value="警告请不要散播有害链接，你的消息将被删除", inline=False)
+            embed.set_footer(text="Oren Bot")
+            embed.color = discord.Color.red()
+            embed.timestamp = datetime.utcnow()
+            await message.delete()
+            await message.channel.send(embed=embed)
+
 
 
 class Channel(commands.Cog):

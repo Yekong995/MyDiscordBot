@@ -74,7 +74,7 @@ def get_token() -> str:
     return env.str("DISCORD_TOKEN")
 
 
-def detect_url(message):
+def detect_url(message: str):
     env = Env()
     env.read_env()
     apikey = env.str("GOOGLE_SAFE_BROWSING_API_KEY")
@@ -99,7 +99,7 @@ def detect_url(message):
         return False
     else:
         if "matches" in re_json:
-            return True + " " + re_json["matches"][0]["threatType"]
+            return True
         else:
             return False
 
@@ -112,5 +112,3 @@ def genereate_otp_qr():
         name="OrenBotSchedule", issuer_name="OrenBot")
     print(totp)
     qrcode.make(totp).save("qrcode.png")
-
-detect_url("http://0wa477gswk848mbc7309gd.mattsenior1.repl.co")
