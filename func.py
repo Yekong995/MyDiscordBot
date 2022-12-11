@@ -2,8 +2,6 @@ import youtube_dl
 import discord
 import asyncio
 import requests
-import json
-import urllib
 import pyotp
 import qrcode
 from requests import get
