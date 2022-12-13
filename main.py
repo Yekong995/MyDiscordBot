@@ -47,6 +47,8 @@ async def on_message(message):
             embed.timestamp = datetime.utcnow()
             await message.delete()
             await message.channel.send(embed=embed)
+    else:
+        await client.process_commands(message)
 
 
 
