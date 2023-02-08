@@ -13,3 +13,4 @@ environs >= 9.3.4
 opencv-python >= 4.6.0.0
 pyotp >= 2.6.0
 qrcode >= 7.3.0
+numpy>=1.22.2 # not directly required, pinned by Snyk to avoid a vulnerability
