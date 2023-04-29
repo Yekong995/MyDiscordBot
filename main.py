@@ -2,12 +2,7 @@ import discord
 import asyncio
 import random
 import nsfw_dl
-import time
-import cv2
-import os
 import re
-from environs import Env
-from pyotp import TOTP
 from datetime import datetime
 from requests import Session, get
 from func import YTDLSource, search, get_token, detect_url
