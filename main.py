@@ -4,7 +4,7 @@ import random
 import nsfw_dl
 import re
 from datetime import datetime
-from requests import Session, get
+from requests import Session
 from func import YTDLSource, search, get_token, detect_url
 from discord.ext.commands import Bot, has_permissions
 from discord.ext import commands
