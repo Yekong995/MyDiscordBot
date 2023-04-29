@@ -8,7 +8,7 @@ from datetime import datetime
 from requests import Session
 from discord.ext.commands import Bot, has_permissions
 from discord.ext import commands
-from func import YTDLSource, search, get_token, detect_url
+from func import YTDLSource, LogCommand, search, get_token, detect_url
 
 # Bot token
 MyToken = get_token()
@@ -18,6 +18,8 @@ intents = discord.Intents.all()
 # description & command_prefix
 client = Bot(command_prefix=">", intents=intents, description="My Command List")
 url_regex = re.compile(r'(https?://\S+)')
+
+log = LogCommand()
 
 
 @client.event
@@ -74,6 +76,7 @@ class Channel(commands.Cog):
             await ctx.send("**" + "Channel " + channel_name + " created successfully" + "**")
         else:
             await ctx.send("**" + "Channel " + channel_name + " already exists" + "**")
+        log.info(ctx.author, "Run command CreateChannel")
 
     @create_channel.error
     async def create_channel_error(self, ctx, error):
@@ -107,6 +110,7 @@ class Channel(commands.Cog):
             await ctx.send("**" + "Channel " + str(channel_name) + " deleted successfully" + "**")
         else:
             await ctx.send("**" + "Channel " + str(channel_name) + " doesn't exist" + "**")
+        log.info(ctx.author, "Run command DeleteChannel")
 
     @delete_channel.error
     async def delete_channel_error(self, ctx, error):
@@ -138,6 +142,7 @@ class Channel(commands.Cog):
         if existing_channel:
             await existing_channel.edit(name=new_name)
             await ctx.send("**" + "Channel " + str(channel_name) + " renamed successfully" + "**")
+        log.info(ctx.author, "Run command RenameChannel")
 
     @rename_channel.error
     async def rename_channel_error(self, ctx, error):
@@ -167,6 +172,7 @@ class Channel(commands.Cog):
         if num.isdigit():
             await ctx.channel.purge(limit=int(num) + 1)
             await ctx.send("**" + "Cleared " + num + " messages successfully" + "**", delete_after=5)
+        log.info(ctx.author, "Run command Clear")
 
     @clear.error
     async def clear_error(self, ctx, error):
@@ -200,6 +206,7 @@ class Channel(commands.Cog):
             if existing_channel:
                 await existing_channel.edit(slowmode_delay=int(seconds))
                 await ctx.send("**" + "Slowmode in " + str(channel_name) + " set to " + seconds + " seconds" + "**")
+        log.info(ctx.author, "Run command SlowMode")
 
     @slowmode.error
     async def slowmode_error(self, ctx, error):
@@ -231,6 +238,7 @@ class Channel(commands.Cog):
         if existing_channel:
             await existing_channel.edit(nsfw=True)
             await ctx.send("**" + "Channel " + str(channel_name) + " set to NSFW" + "**")
+        log.info(ctx.author, "Run command NSFW")
 
     @nsfw.error
     async def nsfw_error(self, ctx, error):
@@ -262,6 +270,7 @@ class Channel(commands.Cog):
         if existing_channel:
             await existing_channel.edit(nsfw=False)
             await ctx.send("**" + "Channel " + str(channel_name) + " set to SFW" + "**")
+        log.info(ctx.author, "Run command SFW")
 
     @sfw.error
     async def sfw_error(self, ctx, error):
@@ -314,6 +323,7 @@ class Music(commands.Cog):
                 await ctx.send("**" + "Now playing: " + "**" + urlJson['title'])
         except AttributeError:
             await ctx.send("I am not connected to a voice channel")
+        log.info(ctx.author, "Run command Play")
 
     async def play_next(self, ctx):
 
@@ -335,6 +345,7 @@ class Music(commands.Cog):
                 await ctx.send("**" + "Playlist is empty" + "**")
         except AttributeError:
             await ctx.send("I am not connected to a voice channel")
+        log.info(ctx.author, "Run command Play_next")
 
     @commands.command(pass_context=True, name="Pause", aliases=['pause'], help="Pauses the song")
     async def pause(self, ctx):
@@ -349,6 +360,7 @@ class Music(commands.Cog):
             await ctx.send("**" + "Paused the song" + "**")
         except AttributeError:
             await ctx.send("I am not connected to a voice channel")
+        log.info(ctx.author, "Run command Pause")
 
     @commands.command(pass_context=True, name="Resume", aliases=['resume'], help="Resumes the song")
     async def resume(self, ctx):
@@ -363,6 +375,7 @@ class Music(commands.Cog):
             await ctx.send("**" + "Resumed the song" + "**")
         except AttributeError:
             await ctx.send("I am not connected to a voice channel")
+        log.info(ctx.author, "Run command Resume")
 
     @commands.command(pass_context=True, name="Stop", aliases=['stop'], help="Stops the song")
     async def stop(self, ctx):
@@ -377,6 +390,7 @@ class Music(commands.Cog):
             await ctx.send("**" + "Stopped the song" + "**")
         except AttributeError:
             await ctx.send("I am not connected to a voice channel")
+        log.info(ctx.author, "Run command Stop")
 
     @commands.command(pass_context=True, name="NowPlaying", aliases=['np', 'nowplaying'],
                       help="Shows the song that is currently playing")
@@ -391,6 +405,7 @@ class Music(commands.Cog):
             await ctx.send("**" + "Now playing: " + "**" + server.source.title)
         except AttributeError:
             await ctx.send("I am not connected to a voice channel")
+        log.info(ctx.author, "Run command Now_playing")
 
     @commands.command(pass_context=True, name="Volume", aliases=['volume'], help="Changes the volume")
     async def volume(self, ctx, *, volume):
@@ -405,6 +420,7 @@ class Music(commands.Cog):
             await ctx.send("**" + "Changed the volume to " + volume + "**")
         except AttributeError:
             await ctx.send("I am not connected to a voice channel")
+        log.info(ctx.author, "Run command Volume")
 
     @volume.error
     async def volume_error(self, ctx, error):
@@ -432,6 +448,7 @@ class Music(commands.Cog):
             await ctx.send("**" + "Joined " + str(channel) + "**")
         else:
             await ctx.send("You are not connected to a voice channel")
+        log.info(ctx.author, "Run command Join")
 
     @commands.command(pass_context=True, name="Leave", aliases=['disconnect', 'leave'], help="Leaves the voice channel")
     async def leave(self, ctx):
@@ -447,6 +464,7 @@ class Music(commands.Cog):
             self.playlist.clear()
         except AttributeError:
             await ctx.send("I am not connected to a voice channel")
+        log.info(ctx.author, "Run command Leave")
 
     @commands.command(pass_context=True, name="Queue", aliases=['queue'], help="Shows the queue")
     async def queue(self, ctx):
@@ -472,6 +490,7 @@ class Music(commands.Cog):
                 await ctx.send("**" + "The queue is empty" + "**")
         except AttributeError:
             await ctx.send("I am not connected to a voice channel")
+        log.info(ctx.author, "Run command Queue")
 
     @commands.command(pass_context=True, name="Add", aliases=['add'], help="Adds a song to the queue")
     async def add(self, ctx, *, name):
@@ -487,6 +506,7 @@ class Music(commands.Cog):
             await ctx.send("**" + "Added " + urlJson['title'] + " to the queue" + "**")
         except AttributeError:
             await ctx.send("I am not connected to a voice channel")
+        log.info(ctx.author, "Run command Add")
 
     @add.error
     async def add_error(self, ctx, error):
@@ -513,6 +533,7 @@ class Music(commands.Cog):
             await ctx.send("**" + "Removed song from the queue" + "**")
         except AttributeError:
             await ctx.send("I am not connected to a voice channel")
+        log.info(ctx.author, "Run command Remove")
 
     @remove.error
     async def remove_error(self, ctx, error):
@@ -539,6 +560,7 @@ class Music(commands.Cog):
             await ctx.send("**" + "Cleared the queue" + "**")
         except AttributeError:
             await ctx.send("I am not connected to a voice channel")
+        log.info(ctx.author, "Run command ClearQueue")
 
     @commands.command(pass_context=True, name="Shuffle", aliases=['shuffle'], help="Shuffles the queue")
     async def shuffle(self, ctx):
@@ -552,6 +574,7 @@ class Music(commands.Cog):
             await ctx.send("**" + "Shuffled the queue" + "**")
         except AttributeError:
             await ctx.send("I am not connected to a voice channel")
+        log.info(ctx.author, "Run command Shuffle")
 
     @commands.command(pass_context=True, name="Skip", aliases=['skip'], help="Skips the song")
     async def skip(self, ctx):
@@ -568,6 +591,7 @@ class Music(commands.Cog):
             self.playlist.pop(0)
         except AttributeError:
             await ctx.send("I am not connected to a voice channel")
+        log.info(ctx.author, "Run command Skip")
 
 
 class Moderation(commands.Cog):
@@ -589,6 +613,7 @@ class Moderation(commands.Cog):
 
         await member.kick(reason=reason)
         await ctx.send(f'**{member} has been kicked by {ctx.author.mention}\nReason: {reason}**')
+        log.info(ctx.author, "Run command Kick")
 
     @kick.error
     async def kick_error(self, ctx, error):
@@ -619,6 +644,7 @@ class Moderation(commands.Cog):
 
         await member.ban(reason=reason)
         await ctx.send(f'**{member} has been banned by {ctx.author.mention}\nReason: {reason}**')
+        log.info(ctx.author, "Run command Ban")
 
     @ban.error
     async def ban_error(self, ctx, error):
@@ -656,6 +682,7 @@ class Moderation(commands.Cog):
             if (user.name, user.discriminator) == (member_name, member_discriminator):
                 await ctx.guild.unban(user)
                 await ctx.send(f'**{user} has been unbanned by {ctx.author.mention}**')
+        log.info(ctx.author, "Run command Unban")
 
     @unban.error
     async def unban_error(self, ctx, error):
@@ -686,6 +713,7 @@ class Moderation(commands.Cog):
 
         await ctx.guild.create_role(name=name)
         await ctx.send(f'**{name} has been created**')
+        log.info(ctx.author, "Run command CreateRole")
 
     @create_role.error
     async def create_role_error(self, ctx, error):
@@ -714,6 +742,7 @@ class Moderation(commands.Cog):
 
         await name.delete()
         await ctx.send(f'**{name} has been deleted**')
+        log.info(ctx.author, "Run command DeleteRole")
 
     @delete_role.error
     async def delete_role_error(self, ctx, error):
@@ -747,14 +776,16 @@ class R18(commands.Cog):
 
     @commands.command(pass_context=True, name="rule34", aliases=['r34'], help="Random rule34 image")
     @commands.is_nsfw()
-    async def rule34(self, ctx):
+    async def rule34(self, ctx: commands.Context):
 
         """
         Random rule34 image.
+        Got problem
         """
 
         self.NSFW.load_default()
         await ctx.send(self.NSFW.download('Rule34Random'))
+        log.info(ctx.author, "Run command rule34")
 
     @rule34.error
     async def rule34_error(self, ctx, error):
@@ -764,14 +795,16 @@ class R18(commands.Cog):
         """
 
         if isinstance(error, commands.NSFWChannelRequired):
+            log.warn(ctx.author, "Run command rule34 in non-NSFW channel")
             await ctx.send("**This command can only be used in NSFW channels**")
         else:
             await ctx.send("**An error has occurred**")
-            print(error)
+            log.error(ctx.author, "Error in command rule34")
+            log.log_err_code(error)
 
     @commands.command(pass_context=True, name="Yandere", aliases=['yandere'], help="Random yandere image")
     @commands.is_nsfw()
-    async def yandere(self, ctx):
+    async def yandere(self, ctx: commands.Context):
 
         """
         Random yandere image.
@@ -779,6 +812,7 @@ class R18(commands.Cog):
 
         self.NSFW.load_default()
         await ctx.send(self.NSFW.download('YandereRandom'))
+        log.info(ctx.author, "Run command yandere")
 
     @yandere.error
     async def yandere_error(self, ctx, error):
@@ -788,14 +822,16 @@ class R18(commands.Cog):
         """
 
         if isinstance(error, commands.NSFWChannelRequired):
+            log.warn(ctx.author, "Run command yandere in non-NSFW channel")
             await ctx.send("**This command can only be used in NSFW channels**")
         else:
             await ctx.send("**An error has occurred**")
-            print(error)
+            log.error(ctx.author, "Error in command yandere")
+            log.log_err_code(error)
 
     @commands.command(pass_context=True, name="Xbooru", aliases=['xbooru'], help="Random xbooru image")
     @commands.is_nsfw()
-    async def xbooru(self, ctx):
+    async def xbooru(self, ctx: commands.Context):
 
         """
         Random xbooru image.
@@ -803,6 +839,7 @@ class R18(commands.Cog):
 
         self.NSFW.load_default()
         await ctx.send(self.NSFW.download('XbooruRandom'))
+        log.info(ctx.author, "Run command xbooru")
 
     @xbooru.error
     async def xbooru_error(self, ctx, error):
@@ -812,14 +849,16 @@ class R18(commands.Cog):
         """
 
         if isinstance(error, commands.NSFWChannelRequired):
+            log.warn(ctx.author, "Run command xbooru in non-NSFW channel")
             await ctx.send("**This command can only be used in NSFW channels**")
         else:
             await ctx.send("**An error has occurred**")
-            print(error)
+            log.error(ctx.author, "Error in command xbooru")
+            log.log_err_code(error)
 
     @commands.command(pass_context=True, name="XbooruSearch", aliases=['xboorus'], help="Searches xbooru")
     @commands.is_nsfw()
-    async def xbooru_search(self, ctx, *, name):
+    async def xbooru_search(self, ctx: commands.Context, *, name):
 
         """
         Searches xbooru.
@@ -827,6 +866,7 @@ class R18(commands.Cog):
 
         self.NSFW.load_default()
         await ctx.send(self.NSFW.download('XbooruSearch', name))
+        log.info(ctx.author, "Run command xbooru_search")
 
     @xbooru_search.error
     async def xbooru_search_error(self, ctx, error):
@@ -836,14 +876,16 @@ class R18(commands.Cog):
         """
 
         if isinstance(error, commands.NSFWChannelRequired):
+            log.warn(ctx.author, "Run command xbooru_search in non-NSFW channel")
             await ctx.send("**This command can only be used in NSFW channels**")
         else:
             await ctx.send("**An error has occurred**")
-            print(error)
+            log.error(ctx.author, "Error in command xbooru_search")
+            log.log_err_code(error)
 
     @commands.command(pass_context=True, name="Konachan", aliases=['konachan'], help="Random konachan image")
     @commands.is_nsfw()
-    async def konachan(self, ctx):
+    async def konachan(self, ctx: commands.Context):
 
         """
         Random konachan image.
@@ -852,6 +894,7 @@ class R18(commands.Cog):
         self.NSFW.load_default()
         url = self.NSFW.download('KonachanRandom').replace("https:", "")
         await ctx.send("https:" + url)
+        log.info(ctx.author, "Run command konachan")
 
     @konachan.error
     async def konachan_error(self, ctx, error):
@@ -861,10 +904,12 @@ class R18(commands.Cog):
         """
 
         if isinstance(error, commands.NSFWChannelRequired):
+            log.warn(ctx.author, "Run command konachan in non-NSFW channel")
             await ctx.send("**This command can only be used in NSFW channels**")
         else:
             await ctx.send("**An error has occurred**")
-            print(error)
+            log.error(ctx.author, "Error in command konachan")
+            log.log_err_code(error)
 
 
 async def main():
