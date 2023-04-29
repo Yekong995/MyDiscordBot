@@ -2,12 +2,13 @@ import discord
 import asyncio
 import random
 import nsfw_dl
+import signal
 import re
 from datetime import datetime
 from requests import Session
-from func import YTDLSource, search, get_token, detect_url
 from discord.ext.commands import Bot, has_permissions
 from discord.ext import commands
+from func import YTDLSource, search, get_token, detect_url
 
 # Bot token
 MyToken = get_token()
@@ -616,4 +617,12 @@ async def main():
         await client.start(MyToken)
 
 
-asyncio.run(main())
+# singal handler
+def signal_handler(signal, frame):
+    print("Exiting...")
+    exit(0)
+
+
+if  __name__ == "__main__":
+    signal.signal(signal.SIGINT, signal_handler)
+    asyncio.run(main())
