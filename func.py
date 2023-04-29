@@ -2,8 +2,6 @@ import youtube_dl
 import discord
 import asyncio
 import requests
-import pyotp
-import qrcode
 from requests import get
 from environs import Env
 
@@ -100,13 +98,3 @@ def detect_url(message: str):
             return True
         else:
             return False
-
-
-def genereate_otp_qr():
-    env = Env()
-    env.read_env()
-    owner = env.str("OWNER_SECRET_KEY")
-    totp = pyotp.totp.TOTP(owner).provisioning_uri(
-        name="OrenBotSchedule", issuer_name="OrenBot")
-    print(totp)
-    qrcode.make(totp).save("qrcode.png")
