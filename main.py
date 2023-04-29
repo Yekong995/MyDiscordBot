@@ -12,8 +12,7 @@ from discord.ext import commands
 # Bot token
 MyToken = get_token()
 
-intents = discord.Intents.default()
-intents.message_content = True
+intents = discord.Intents.all()
 
 # description & command_prefix
 client = Bot(command_prefix=">", intents=intents, description="My Command List")
