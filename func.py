@@ -4,7 +4,6 @@ import asyncio
 import requests
 import colorama
 import datetime
-import pprint
 from requests import get
 from environs import Env
 
@@ -124,4 +123,4 @@ class LogCommand():
 
     def log_err_code(self, msg: str) -> None:
         msg = f"{colorama.Fore.BLUE}{self.current_time} {colorama.Fore.LIGHTMAGENTA_EX}{msg}{colorama.Fore.RESET}"
-        pprint.pprint(msg)
+        print(msg)
