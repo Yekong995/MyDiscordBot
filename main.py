@@ -59,6 +59,11 @@ class Channel(commands.Cog):
     @commands.command(pass_context=True, name="CreateChannel", aliases=["cc"], help="Creates a channel")
     @has_permissions(administrator=True)
     async def create_channel(self, ctx, channel_name):
+
+        """
+        Creates a channel.
+        """
+
         guild = ctx.guild
         existing_channel = discord.utils.get(guild.channels, name=channel_name)
         if not existing_channel:
@@ -72,6 +77,11 @@ class Channel(commands.Cog):
 
     @create_channel.error
     async def create_channel_error(self, ctx, error):
+
+        """
+        Error handler for create_channel.
+        """
+
         if isinstance(error, commands.MissingPermissions):
             await ctx.send("**You don't have permission to do that**")
         elif isinstance(error, commands.MissingRequiredArgument):
@@ -85,6 +95,11 @@ class Channel(commands.Cog):
     @commands.command(pass_context=True, name="DeleteChannel", aliases=["dc"], help="Deletes a channel")
     @has_permissions(administrator=True)
     async def delete_channel(self, ctx, channel_name: discord.TextChannel):
+
+        """
+        Deletes a channel.
+        """
+
         guild = ctx.guild
         existing_channel = discord.utils.get(guild.channels, id=channel_name.id)
         if existing_channel:
@@ -95,6 +110,11 @@ class Channel(commands.Cog):
 
     @delete_channel.error
     async def delete_channel_error(self, ctx, error):
+
+        """
+        Error handler for delete_channel.
+        """
+
         if isinstance(error, commands.MissingPermissions):
             await ctx.send("**You don't have permission to do that**")
         elif isinstance(error, commands.MissingRequiredArgument):
@@ -108,6 +128,11 @@ class Channel(commands.Cog):
     @commands.command(pass_context=True, name="RenameChannel", aliases=["rc"], help="Renames a channel")
     @has_permissions(administrator=True)
     async def rename_channel(self, ctx, channel_name: discord.TextChannel, new_name):
+
+        """
+        Renames a channel.
+        """
+
         guild = ctx.guild
         existing_channel = discord.utils.get(guild.channels, id=channel_name.id)
         if existing_channel:
@@ -116,6 +141,11 @@ class Channel(commands.Cog):
 
     @rename_channel.error
     async def rename_channel_error(self, ctx, error):
+
+        """
+        Error handler for rename_channel.
+        """
+
         if isinstance(error, commands.MissingPermissions):
             await ctx.send("**You don't have permission to do that**")
         elif isinstance(error, commands.MissingRequiredArgument):
@@ -129,12 +159,22 @@ class Channel(commands.Cog):
     @commands.command(pass_context=True, name="Clear", aliases=["clear"], help="Clears the chat")
     @has_permissions(administrator=True)
     async def clear(self, ctx, num):
+
+        """
+        Clears the chat.
+        """
+
         if num.isdigit():
             await ctx.channel.purge(limit=int(num) + 1)
             await ctx.send("**" + "Cleared " + num + " messages successfully" + "**", delete_after=5)
 
     @clear.error
     async def clear_error(self, ctx, error):
+
+        """
+        Error handler for clear.
+        """
+
         if isinstance(error, commands.MissingPermissions):
             await ctx.send("**You don't have permission to do that**")
         elif isinstance(error, commands.MissingRequiredArgument):
@@ -149,6 +189,11 @@ class Channel(commands.Cog):
     @commands.command(pass_context=True, name="SlowMode", aliases=["sm"], help="Sets the slowmode")
     @has_permissions(manage_channels=True)
     async def slowmode(self, ctx, channel_name: discord.TextChannel, seconds):
+
+        """
+        Sets the slowmode.
+        """
+
         if seconds.isdigit():
             guild = ctx.guild
             existing_channel = discord.utils.get(guild.channels, id=channel_name.id)
@@ -158,6 +203,11 @@ class Channel(commands.Cog):
 
     @slowmode.error
     async def slowmode_error(self, ctx, error):
+
+        """
+        Error handler for slowmode.
+        """
+
         if isinstance(error, commands.MissingPermissions):
             await ctx.send("**You don't have permission to do that**")
         elif isinstance(error, commands.MissingRequiredArgument):
@@ -171,6 +221,11 @@ class Channel(commands.Cog):
     @commands.command(pass_context=True, name="NSFW", aliases=["nsfw"], help="Sets the channel to NSFW")
     @has_permissions(manage_channels=True)
     async def nsfw(self, ctx, channel_name: discord.TextChannel):
+
+        """
+        Sets the channel to NSFW.
+        """
+
         guild = ctx.guild
         existing_channel = discord.utils.get(guild.channels, id=channel_name.id)
         if existing_channel:
@@ -179,6 +234,11 @@ class Channel(commands.Cog):
 
     @nsfw.error
     async def nsfw_error(self, ctx, error):
+
+        """
+        Error handler for nsfw.
+        """
+
         if isinstance(error, commands.MissingPermissions):
             await ctx.send("**You don't have permission to do that**")
         elif isinstance(error, commands.MissingRequiredArgument):
@@ -192,6 +252,11 @@ class Channel(commands.Cog):
     @commands.command(pass_context=True, name="SFW", aliases=["sfw"], help="Sets the channel to SFW")
     @has_permissions(manage_channels=True)
     async def sfw(self, ctx, channel_name: discord.TextChannel):
+
+        """
+        Sets the channel to SFW.
+        """
+
         guild = ctx.guild
         existing_channel = discord.utils.get(guild.channels, id=channel_name.id)
         if existing_channel:
@@ -200,6 +265,11 @@ class Channel(commands.Cog):
 
     @sfw.error
     async def sfw_error(self, ctx, error):
+
+        """
+        Error handler for sfw.
+        """
+
         if isinstance(error, commands.MissingPermissions):
             await ctx.send("**You don't have permission to do that**")
         elif isinstance(error, commands.MissingRequiredArgument):
@@ -224,6 +294,11 @@ class Music(commands.Cog):
 
     @commands.command(pass_context=True, name="Play", aliases=['play'], help="Plays a song")
     async def play(self, ctx, *, name):
+
+        """
+        Plays a song.
+        """
+
         try:
             server = ctx.message.guild.voice_client
             if server.is_playing():
@@ -241,6 +316,11 @@ class Music(commands.Cog):
             await ctx.send("I am not connected to a voice channel")
 
     async def play_next(self, ctx):
+
+        """
+        Plays the next song in the playlist.
+        """
+
         try:
             server = ctx.message.guild.voice_client
             try:
@@ -258,6 +338,11 @@ class Music(commands.Cog):
 
     @commands.command(pass_context=True, name="Pause", aliases=['pause'], help="Pauses the song")
     async def pause(self, ctx):
+
+        """
+        Pauses the song.
+        """
+
         try:
             server = ctx.message.guild.voice_client
             server.pause()
@@ -267,6 +352,11 @@ class Music(commands.Cog):
 
     @commands.command(pass_context=True, name="Resume", aliases=['resume'], help="Resumes the song")
     async def resume(self, ctx):
+
+        """
+        Resumes the song.
+        """
+
         try:
             server = ctx.message.guild.voice_client
             server.resume()
@@ -276,6 +366,11 @@ class Music(commands.Cog):
 
     @commands.command(pass_context=True, name="Stop", aliases=['stop'], help="Stops the song")
     async def stop(self, ctx):
+
+        """
+        Stops the song.
+        """
+
         try:
             server = ctx.message.guild.voice_client
             server.stop()
@@ -286,6 +381,11 @@ class Music(commands.Cog):
     @commands.command(pass_context=True, name="NowPlaying", aliases=['np', 'nowplaying'],
                       help="Shows the song that is currently playing")
     async def now_playing(self, ctx):
+
+        """
+        Shows the song that is currently playing.
+        """
+
         try:
             server = ctx.message.guild.voice_client
             await ctx.send("**" + "Now playing: " + "**" + server.source.title)
@@ -294,6 +394,11 @@ class Music(commands.Cog):
 
     @commands.command(pass_context=True, name="Volume", aliases=['volume'], help="Changes the volume")
     async def volume(self, ctx, *, volume):
+
+        """
+        Changes the volume.
+        """
+
         try:
             server = ctx.message.guild.voice_client
             server.source.volume = float(volume) / 100
@@ -303,6 +408,11 @@ class Music(commands.Cog):
 
     @volume.error
     async def volume_error(self, ctx, error):
+
+        """
+        Error handler for volume.
+        """
+
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send("**Please specify a volume**")
         else:
@@ -311,6 +421,11 @@ class Music(commands.Cog):
 
     @commands.command(pass_context=True, name="Join", aliases=['join'], help="Joins the voice channel")
     async def join(self, ctx):
+
+        """
+        Joins the voice channel.
+        """
+
         if ctx.message.author.voice:
             channel = ctx.message.author.voice.channel
             await channel.connect()
@@ -320,6 +435,11 @@ class Music(commands.Cog):
 
     @commands.command(pass_context=True, name="Leave", aliases=['disconnect', 'leave'], help="Leaves the voice channel")
     async def leave(self, ctx):
+
+        """
+        Leaves the voice channel.
+        """
+
         try:
             server = ctx.message.guild.voice_client
             await server.disconnect()
@@ -330,6 +450,11 @@ class Music(commands.Cog):
 
     @commands.command(pass_context=True, name="Queue", aliases=['queue'], help="Shows the queue")
     async def queue(self, ctx):
+
+        """
+        Shows the queue.
+        """
+
         try:
             server = ctx.message.guild.voice_client
             if self.playlist:
@@ -350,6 +475,11 @@ class Music(commands.Cog):
 
     @commands.command(pass_context=True, name="Add", aliases=['add'], help="Adds a song to the queue")
     async def add(self, ctx, *, name):
+
+        """
+        Adds a song to the queue.
+        """
+
         try:
             urlJson = search(name)
             urlN = urlJson['title']
@@ -360,6 +490,11 @@ class Music(commands.Cog):
 
     @add.error
     async def add_error(self, ctx, error):
+
+        """
+        Error handler for add.
+        """
+
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send("**" + "Please specify a song" + "**")
         else:
@@ -368,6 +503,11 @@ class Music(commands.Cog):
 
     @commands.command(pass_context=True, name="Remove", aliases=['remove'], help="Removes a song from the queue")
     async def remove(self, ctx, *, number: int):
+
+        """
+        Removes a song from the queue.
+        """
+
         try:
             self.playlist.pop(int(number) - 1)
             await ctx.send("**" + "Removed song from the queue" + "**")
@@ -376,6 +516,11 @@ class Music(commands.Cog):
 
     @remove.error
     async def remove_error(self, ctx, error):
+
+        """
+        Error handler for remove.
+        """
+
         if isinstance(error, commands.MissingRequiredArgument):
             await ctx.send("**" + "Please specify a song" + "**")
         else:
@@ -384,6 +529,11 @@ class Music(commands.Cog):
 
     @commands.command(pass_context=True, name="ClearQueue", aliases=['clearqueue', 'cq'], help="Clears the queue")
     async def clear_queue(self, ctx):
+
+        """
+        Clears the queue.
+        """
+
         try:
             self.playlist.clear()
             await ctx.send("**" + "Cleared the queue" + "**")
@@ -392,6 +542,11 @@ class Music(commands.Cog):
 
     @commands.command(pass_context=True, name="Shuffle", aliases=['shuffle'], help="Shuffles the queue")
     async def shuffle(self, ctx):
+
+        """
+        Shuffles the queue.
+        """
+
         try:
             random.shuffle(self.playlist)
             await ctx.send("**" + "Shuffled the queue" + "**")
@@ -400,6 +555,11 @@ class Music(commands.Cog):
 
     @commands.command(pass_context=True, name="Skip", aliases=['skip'], help="Skips the song")
     async def skip(self, ctx):
+
+        """
+        Skips the song.
+        """
+
         try:
             server = ctx.message.guild.voice_client
             server.stop()
@@ -422,11 +582,21 @@ class Moderation(commands.Cog):
     @commands.command(pass_context=True, name="Kick", aliases=['kick'], help="Kicks a user")
     @has_permissions(kick_members=True)
     async def kick(self, ctx, member: discord.Member, *, reason=None):
+
+        """
+        Kicks a user.
+        """
+
         await member.kick(reason=reason)
         await ctx.send(f'**{member} has been kicked by {ctx.author.mention}\nReason: {reason}**')
 
     @kick.error
     async def kick_error(self, ctx, error):
+
+        """
+        Error handler for kick.
+        """
+
         if isinstance(error, commands.MissingPermissions):
             await ctx.send("**You don't have permission to do that**")
         elif isinstance(error, commands.MissingRequiredArgument):
@@ -442,11 +612,21 @@ class Moderation(commands.Cog):
     @commands.command(pass_context=True, name="Ban", aliases=['ban'], help="Bans a user")
     @has_permissions(ban_members=True)
     async def ban(self, ctx, member: discord.Member, *, reason=None):
+
+        """
+        Bans a user.
+        """
+
         await member.ban(reason=reason)
         await ctx.send(f'**{member} has been banned by {ctx.author.mention}\nReason: {reason}**')
 
     @ban.error
     async def ban_error(self, ctx, error):
+
+        """
+        Error handler for ban.
+        """
+
         if isinstance(error, commands.MissingPermissions):
             await ctx.send("**You don't have permission to do that**")
         elif isinstance(error, commands.MissingRequiredArgument):
@@ -462,6 +642,11 @@ class Moderation(commands.Cog):
     @commands.command(pass_context=True, name="Unban", aliases=['unban'], help="Unbans a user")
     @has_permissions(ban_members=True)
     async def unban(self, ctx, *, member: discord.Member):
+
+        """
+        Unbans a user.
+        """
+
         banned_users = ctx.guild.bans()
         member_name, member_discriminator = member.split('#')
 
@@ -474,6 +659,11 @@ class Moderation(commands.Cog):
 
     @unban.error
     async def unban_error(self, ctx, error):
+
+        """
+        Error handler for unban.
+        """
+
         if isinstance(error, commands.MissingPermissions):
             await ctx.send("**You don't have permission to do that**")
         elif isinstance(error, commands.MissingRequiredArgument):
@@ -489,11 +679,21 @@ class Moderation(commands.Cog):
     @commands.command(pass_context=True, name="CreateRole", aliases=['createrole', 'cr'], help="Creates a role")
     @has_permissions(manage_roles=True)
     async def create_role(self, ctx, *, name):
+
+        """
+        Creates a role.
+        """
+
         await ctx.guild.create_role(name=name)
         await ctx.send(f'**{name} has been created**')
 
     @create_role.error
     async def create_role_error(self, ctx, error):
+
+        """
+        Error handler for create_role.
+        """
+
         if isinstance(error, commands.MissingPermissions):
             await ctx.send("**You don't have permission to do that**")
         elif isinstance(error, commands.MissingRequiredArgument):
@@ -507,11 +707,21 @@ class Moderation(commands.Cog):
     @commands.command(pass_context=True, name="DeleteRole", aliases=['deleterole', 'dr'], help="Deletes a role")
     @has_permissions(manage_roles=True)
     async def delete_role(self, ctx, *, name: discord.Role):
+
+        """
+        Deletes a role.
+        """
+
         await name.delete()
         await ctx.send(f'**{name} has been deleted**')
 
     @delete_role.error
     async def delete_role_error(self, ctx, error):
+
+        """
+        Error handler for delete_role.
+        """
+
         if isinstance(error, commands.MissingPermissions):
             await ctx.send("**You don't have permission to do that**")
         elif isinstance(error, commands.MissingRequiredArgument):
@@ -538,11 +748,21 @@ class R18(commands.Cog):
     @commands.command(pass_context=True, name="rule34", aliases=['r34'], help="Random rule34 image")
     @commands.is_nsfw()
     async def rule34(self, ctx):
+
+        """
+        Random rule34 image.
+        """
+
         self.NSFW.load_default()
         await ctx.send(self.NSFW.download('Rule34Random'))
 
     @rule34.error
     async def rule34_error(self, ctx, error):
+
+        """
+        Error handler for rule34.
+        """
+
         if isinstance(error, commands.NSFWChannelRequired):
             await ctx.send("**This command can only be used in NSFW channels**")
         else:
@@ -552,11 +772,21 @@ class R18(commands.Cog):
     @commands.command(pass_context=True, name="Yandere", aliases=['yandere'], help="Random yandere image")
     @commands.is_nsfw()
     async def yandere(self, ctx):
+
+        """
+        Random yandere image.
+        """
+
         self.NSFW.load_default()
         await ctx.send(self.NSFW.download('YandereRandom'))
 
     @yandere.error
     async def yandere_error(self, ctx, error):
+
+        """
+        Error handler for yandere.
+        """
+
         if isinstance(error, commands.NSFWChannelRequired):
             await ctx.send("**This command can only be used in NSFW channels**")
         else:
@@ -566,11 +796,21 @@ class R18(commands.Cog):
     @commands.command(pass_context=True, name="Xbooru", aliases=['xbooru'], help="Random xbooru image")
     @commands.is_nsfw()
     async def xbooru(self, ctx):
+
+        """
+        Random xbooru image.
+        """
+
         self.NSFW.load_default()
         await ctx.send(self.NSFW.download('XbooruRandom'))
 
     @xbooru.error
     async def xbooru_error(self, ctx, error):
+
+        """
+        Error handler for xbooru.
+        """
+
         if isinstance(error, commands.NSFWChannelRequired):
             await ctx.send("**This command can only be used in NSFW channels**")
         else:
@@ -580,11 +820,21 @@ class R18(commands.Cog):
     @commands.command(pass_context=True, name="XbooruSearch", aliases=['xboorus'], help="Searches xbooru")
     @commands.is_nsfw()
     async def xbooru_search(self, ctx, *, name):
+
+        """
+        Searches xbooru.
+        """
+
         self.NSFW.load_default()
         await ctx.send(self.NSFW.download('XbooruSearch', name))
 
     @xbooru_search.error
     async def xbooru_search_error(self, ctx, error):
+
+        """
+        Error handler for xbooru_search.
+        """
+
         if isinstance(error, commands.NSFWChannelRequired):
             await ctx.send("**This command can only be used in NSFW channels**")
         else:
@@ -594,12 +844,22 @@ class R18(commands.Cog):
     @commands.command(pass_context=True, name="Konachan", aliases=['konachan'], help="Random konachan image")
     @commands.is_nsfw()
     async def konachan(self, ctx):
+
+        """
+        Random konachan image.
+        """
+
         self.NSFW.load_default()
         url = self.NSFW.download('KonachanRandom').replace("https:", "")
         await ctx.send("https:" + url)
 
     @konachan.error
     async def konachan_error(self, ctx, error):
+
+        """
+        Error handler for konachan.
+        """
+
         if isinstance(error, commands.NSFWChannelRequired):
             await ctx.send("**This command can only be used in NSFW channels**")
         else:
