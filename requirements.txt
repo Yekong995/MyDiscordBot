@@ -8,7 +8,7 @@ typing-extensions >= 4.0.0
 yarl >= 1.6.3
 requests >= 2.26.0
 youtube_dl >= 2021.12.0
-nsfw_dl == 0.4.1
+nsfw_dl >= 0.4.1
 environs >= 9.3.4
 opencv-python >= 4.6.0.0
 pyotp >= 2.6.0
