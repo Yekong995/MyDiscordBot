@@ -39,7 +39,7 @@ async def on_message(message):
     if url_regex.search(message.content):
         url = url_regex.search(message.content).group(1)
         result = detect_url(url)
-        if result != False:
+        if result is not False:
             embed = discord.Embed()
             embed.add_field(name="URL Detected", value="警告请不要散播有害链接，你的消息将被删除", inline=False)
             embed.set_footer(text="Oren Bot")
@@ -54,7 +54,11 @@ async def on_message(message):
 
 class Channel(commands.Cog):
 
-    def __int__(self, bot):
+    """
+    Channel commands.
+    """
+
+    def __init__(self, bot):
         self.bot = bot
 
     @commands.command(pass_context=True, name="CreateChannel", aliases=["cc"], help="Creates a channel")
@@ -213,6 +217,11 @@ class Channel(commands.Cog):
 
 
 class Music(commands.Cog):
+
+    """
+    Music commands. As youtube-dl problem is not solved, this cog is not working.
+    """
+
     def __init__(self, bot):
         self.client = bot
         self.playlist = []
@@ -408,6 +417,10 @@ class Music(commands.Cog):
 
 class Moderation(commands.Cog):
 
+    """
+    Moderation commands
+    """
+
     def __init__(self, bot):
         self.bot = bot
 
@@ -516,6 +529,10 @@ class Moderation(commands.Cog):
 
 
 class R18(commands.Cog):
+
+    """
+    NSFW commands
+    """
 
     def __init__(self, bot):
         # (Can't use or don't want use) Nhentai, Tsumino, Tbib, Lolibooru, Konachan(Search), Hbrowse, Gelbooru
@@ -726,7 +743,8 @@ class Function(commands.Cog):
 async def main():
     async with client:
         await client.add_cog(Channel(client))
-        await client.add_cog(Music(client))
+        # youtube-dl is not working, so temporarily disable music
+        # await client.add_cog(Music(client))
         await client.add_cog(Moderation(client))
         await client.add_cog(R18(client))
         await client.add_cog(Function(client))
