@@ -5,6 +5,7 @@ import re
 from discord.ext.commands import Bot
 from datetime import datetime
 from func import get_token, detect_url
+from core.function.logger import LogCommand
 
 # import cogs
 from core.channel import Channel
@@ -20,6 +21,8 @@ intents = discord.Intents.all()
 # description & command_prefix
 client = Bot(command_prefix=">", intents=intents, description="My Command List")
 url_regex = re.compile(r'(https?://\S+)')
+
+log = LogCommand()
 
 
 @client.event
