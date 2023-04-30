@@ -1,11 +1,9 @@
 """
 NSFW cog for the bot.
 """
-import discord
 import nsfw_dl
 from requests import Session
 from discord.ext import commands
-from discord.ext.commands import hash_permissions
 from core.function.logger import LogCommand
 
 log = LogCommand()
