@@ -5,6 +5,7 @@ import nsfw_dl
 from requests import Session
 from discord.ext import commands
 from core.function.logger import LogCommand
+from core.function.nsfw_dl import Rule34
 
 log = LogCommand()
 
@@ -19,6 +20,7 @@ class R18(commands.Cog):
         # Furrybooru, E621, Danbooru, Drunkenpumken
         self.bot = bot
         self.NSFW = nsfw_dl.NSFWDL(session=Session())
+        self.R34 = Rule34()
 
     @commands.command(pass_context=True, name="rule34", aliases=['r34'], help="Random rule34 image")
     @commands.is_nsfw()
@@ -29,8 +31,8 @@ class R18(commands.Cog):
         Got problem
         """
 
-        self.NSFW.load_default()
-        await ctx.send(self.NSFW.download('Rule34Random'))
+        link = self.R34.random_image()
+        await ctx.send(link)
         log.info(ctx.author, "Run command rule34")
 
     @rule34.error
