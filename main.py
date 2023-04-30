@@ -1,12 +1,13 @@
 """
 Discord bot main file.
 """
-import discord
 import asyncio
 import signal
 import re
-from discord.ext.commands import Bot
+import sys
+import discord
 from datetime import datetime
+from discord.ext.commands import Bot
 from func import get_token, detect_url
 from core.function.logger import LogCommand
 
@@ -65,9 +66,9 @@ async def main():
         await client.start(MyToken)
 
 # singal handler
-def signal_handler(signal, frame):
+def signal_handler(_signal, _frame):
     print("Exiting...")
-    exit(0)
+    sys.exit(0)
 
 
 if  __name__ == "__main__":
