@@ -1,3 +1,6 @@
+"""
+Discord bot main file.
+"""
 import discord
 import asyncio
 import signal
