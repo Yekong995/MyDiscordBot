@@ -34,7 +34,7 @@ class Rule34():
         """
         Returns random image from rule34.xxx
         """
-        title = title.replace(" ", "_")
+        title = title.replace(" ", "_").lower()
         url = self.search_url + title + "&pid=" + str(random.randint(0, self.maxpage))
         r = requests.get(url, headers=self.user_agent)
         soup = BeautifulSoup(r.text, "lxml")
