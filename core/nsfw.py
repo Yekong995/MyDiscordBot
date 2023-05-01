@@ -62,6 +62,21 @@ class R18(commands.Cog):
             await ctx.send(self.R34.get_img_by_id(link))
             log.info(ctx.author, "Run command rule34search")
 
+    @rule34search.error
+    async def rule34search_error(self, ctx, error):
+            
+            """
+            Error handler for rule34search.
+            """
+    
+            if isinstance(error, commands.NSFWChannelRequired):
+                log.warn(ctx.author, "Run command rule34search in non-NSFW channel")
+                await ctx.send("**This command can only be used in NSFW channels**")
+            else:
+                await ctx.send("**An error has occurred**")
+                log.error(ctx.author, "Error in command rule34search")
+                print(error)
+
     @commands.command(pass_context=True, name="Yandere", aliases=['yandere'], help="Random yandere image")
     @commands.is_nsfw()
     async def yandere(self, ctx: commands.Context):
