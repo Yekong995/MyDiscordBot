@@ -50,6 +50,18 @@ class R18(commands.Cog):
             log.error(ctx.author, "Error in command rule34")
             log.log_err_code(error)
 
+    @commands.command(pass_context=True, name="rule34search", aliases=['r34s'], help="Search rule34 image")
+    @commands.is_nsfw()
+    async def rule34search(self, ctx: commands.Context, *, title: str):
+            
+            """
+            Search rule34 image.
+            """
+    
+            link = self.R34.search_img(title)
+            await ctx.send(self.R34.get_img_by_id(link))
+            log.info(ctx.author, "Run command rule34search")
+
     @commands.command(pass_context=True, name="Yandere", aliases=['yandere'], help="Random yandere image")
     @commands.is_nsfw()
     async def yandere(self, ctx: commands.Context):
