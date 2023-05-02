@@ -34,6 +34,7 @@ class R18(commands.Cog):
 
         link = self.R34.random_image()
         await ctx.send(file=discord.File(link))
+        os.remove(link)
         log.info(ctx.author, "Run command rule34")
 
     @rule34.error
