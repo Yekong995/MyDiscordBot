@@ -28,7 +28,10 @@ class Rule34():
         r = requests.get(url, headers=self.user_agent)
         soup = BeautifulSoup(r.text, "lxml")
         img = soup.find("img", {"id": "image"})["src"]
-        return img
+        img_data = requests.get(img, headers=self.user_agent)
+        with open('image.jpg', 'wb') as handler:
+            handler.write(img_data.content)
+        return "image.jpg"
     
     def search_img(self, title: str) -> str:
         """
@@ -50,4 +53,7 @@ class Rule34():
         r = requests.get(url, headers=self.user_agent)
         soup = BeautifulSoup(r.text, "lxml")
         img = soup.find("img", {"id": "image"})["src"]
-        return img
+        img_data = requests.get(img, headers=self.user_agent)
+        with open('image.jpg', 'wb') as handler:
+            handler.write(img_data.content)
+        return "image.jpg"
