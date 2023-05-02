@@ -1,6 +1,8 @@
 """
 NSFW cog for the bot.
 """
+import os
+import discord
 import nsfw_dl
 from requests import Session
 from discord.ext import commands
@@ -28,11 +30,10 @@ class R18(commands.Cog):
 
         """
         Random rule34 image.
-        Got problem
         """
 
         link = self.R34.random_image()
-        await ctx.send(link)
+        await ctx.send(file=discord.File(link))
         log.info(ctx.author, "Run command rule34")
 
     @rule34.error
@@ -59,7 +60,9 @@ class R18(commands.Cog):
             """
     
             link = self.R34.search_img(title)
-            await ctx.send(self.R34.get_img_by_id(link))
+            file_name = self.R34.get_img_by_id(link)
+            await ctx.send(file=discord.File(file_name))
+            os.remove(file_name)
             log.info(ctx.author, "Run command rule34search")
 
     @rule34search.error
