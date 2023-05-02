@@ -48,7 +48,7 @@ class R18(commands.Cog):
         else:
             await ctx.send("**An error has occurred**")
             log.error(ctx.author, "Error in command rule34")
-            log.log_err_code(error)
+            print(error)
 
     @commands.command(pass_context=True, name="rule34search", aliases=['r34s'], help="Search rule34 image")
     @commands.is_nsfw()
@@ -102,7 +102,7 @@ class R18(commands.Cog):
         else:
             await ctx.send("**An error has occurred**")
             log.error(ctx.author, "Error in command yandere")
-            log.log_err_code(error)
+            print(error)
 
     @commands.command(pass_context=True, name="Xbooru", aliases=['xbooru'], help="Random xbooru image")
     @commands.is_nsfw()
@@ -129,7 +129,7 @@ class R18(commands.Cog):
         else:
             await ctx.send("**An error has occurred**")
             log.error(ctx.author, "Error in command xbooru")
-            log.log_err_code(error)
+            print(error)
 
     @commands.command(pass_context=True, name="XbooruSearch", aliases=['xboorus'], help="Searches xbooru")
     @commands.is_nsfw()
@@ -156,7 +156,7 @@ class R18(commands.Cog):
         else:
             await ctx.send("**An error has occurred**")
             log.error(ctx.author, "Error in command xbooru_search")
-            log.log_err_code(error)
+            print(error)
 
     @commands.command(pass_context=True, name="Konachan", aliases=['konachan'], help="Random konachan image")
     @commands.is_nsfw()
@@ -184,4 +184,4 @@ class R18(commands.Cog):
         else:
             await ctx.send("**An error has occurred**")
             log.error(ctx.author, "Error in command konachan")
-            log.log_err_code(error)
+            print(error)
