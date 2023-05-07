@@ -74,5 +74,4 @@ def main():
     signal.signal(signal.SIGINT, signal_handler)
     asyncio.run(main())
 
-if  __name__ == "__main__":
-    main()
+main()
