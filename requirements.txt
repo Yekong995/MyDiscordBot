@@ -11,3 +11,4 @@ youtube_dl >= 2021.12.0
 nsfw_dl >= 0.4.1
 environs >= 9.3.4
 numpy>=1.22.2 # not directly required, pinned by Snyk to avoid a vulnerability
+colorama>=0.4.6
