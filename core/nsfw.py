@@ -7,7 +7,7 @@ import nsfw_dl
 from requests import Session
 from discord.ext import commands
 from core.function.logger import LogCommand
-from core.function.nsfw_dl import Rule34
+from core.function.nsfw_base import Rule34
 
 log = LogCommand()
 
