@@ -70,7 +70,9 @@ def signal_handler(_signal, _frame):
     print("Exiting...")
     sys.exit(0)
 
-
-if  __name__ == "__main__":
+def main():
     signal.signal(signal.SIGINT, signal_handler)
     asyncio.run(main())
+
+if  __name__ == "__main__":
+    main()
