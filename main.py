@@ -56,7 +56,7 @@ async def on_message(message):
         await client.process_commands(message)
 
 
-async def main():
+async def main_entry():
     async with client:
         await client.add_cog(Channel(client))
         # youtube-dl is not working, so temporarily disable music
@@ -72,6 +72,6 @@ def signal_handler(_signal, _frame):
 
 def main():
     signal.signal(signal.SIGINT, signal_handler)
-    asyncio.run(main())
+    asyncio.run(main_entry())
 
 main()
