@@ -4,6 +4,7 @@ Lib for nsfw functions.
 
 import requests
 import random
+from tqdm import tqdm
 from bs4 import BeautifulSoup
 
 class Rule34():
@@ -28,9 +29,18 @@ class Rule34():
         r = requests.get(url, headers=self.user_agent)
         soup = BeautifulSoup(r.text, "lxml")
         img = soup.find("img", {"id": "image"})["src"]
-        img_data = requests.get(img, headers=self.user_agent)
+        img_data = requests.get(img, headers=self.user_agent, stream=True)
+        total_size_in_bytes= int(img_data.headers.get('content-length', 0))
+        block_size = 1024
+        progress_bar = tqdm(total=total_size_in_bytes, unit='iB', unit_scale=True, desc="Downloading image",
+                            ascii=True, colour="magenta")
         with open('image.jpg', 'wb') as handler:
-            handler.write(img_data.content)
+            for data in img_data.iter_content(block_size):
+                progress_bar.update(len(data))
+                handler.write(data)
+        progress_bar.close()
+        if total_size_in_bytes != 0 and progress_bar.n != total_size_in_bytes:
+            print("ERROR, something went wrong")
         return "image.jpg"
     
     def search_img(self, title: str) -> str:
@@ -53,7 +63,16 @@ class Rule34():
         r = requests.get(url, headers=self.user_agent)
         soup = BeautifulSoup(r.text, "lxml")
         img = soup.find("img", {"id": "image"})["src"]
-        img_data = requests.get(img, headers=self.user_agent)
+        img_data = requests.get(img, headers=self.user_agent, stream=True)
+        total_size_in_bytes= int(img_data.headers.get('content-length', 0))
+        block_size = 1024
+        progress_bar = tqdm(total=total_size_in_bytes, unit='iB', unit_scale=True, desc="Downloading image",
+                            ascii=True, colour="magenta")
         with open('image.jpg', 'wb') as handler:
-            handler.write(img_data.content)
+            for data in img_data.iter_content(block_size):
+                progress_bar.update(len(data))
+                handler.write(data)
+        progress_bar.close()
+        if total_size_in_bytes != 0 and progress_bar.n != total_size_in_bytes:
+            print("ERROR, something went wrong")
         return "image.jpg"
