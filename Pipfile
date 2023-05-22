@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+discord.py = ">=2.2.3"
+aiohttp = ">=3.8.4"
+async-timeout = ">=4.0.2"
+attrs = ">=23.1.0"
+chardet = ">=5.1.0"
+multidict = ">=6.0.4"
+typing-extensions = ">=4.5.0"
+yarl = ">=1.9.2"
+requests = ">=2.29.0"
+youtube_dl = ">=2021.12.17"
+nsfw_dl = ">=0.4.1"
+environs = ">=9.5.0"
+colorama = ">=0.4.6"
