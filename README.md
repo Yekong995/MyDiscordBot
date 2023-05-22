@@ -14,6 +14,8 @@ How to setup token. Please refer to [Setup Token](#Token).
 
 Bot default prefix `>`. How to change prefix. -> [Prefix Setup](#Prefix-Setup)
 
+
+
 ## How To Use
 
 OS      |Python Version
@@ -23,10 +25,28 @@ Linux   |Python3 <br>Use command `sudo apt install python3`
 
 > NOTE: Linux user please use `sudo apt install python3-pip` to install pip3 before use it.
 
-    pip install -r requirements.txt
-    python __main__.py
+```bash
+pip install -U -r requirements.txt
+python main.py
+```
+
+### Virtual Environment
+
+```bash
+pip install -U pipenv
+pipenv update
+pipenv shell # This will let you enter virtual environment, enter exit to exit this virtual environment
+python main.py
+```
+
+
+
+
+
+
 
 ## Requirements
+
 > - [Python 3.8+](https://www.python.org/downloads/)
 > - [PIP](https://pip.pypa.io/en/stable/installation/)
 > - [FFMPEG](https://ffmpeg.org/download.html)
@@ -46,8 +66,9 @@ Package Name                                                                  |V
 [typing_extensions](https://pypi.org/project/typing-extensions/)              |4.0.0+
 [yarl](https://pypi.org/project/yarl/)                                        |1.6.3+
 [requests](https://pypi.org/project/requests/)                                |2.26.0+
-[environs](https://pypi.org/project/environs/)                                |9.3.4+
-[opencv-python](https://pypi.org/project/opencv-python/)                      |4.6.0.0+
+[environs](https://pypi.org/project/environs/)                                |9.3.4+ 
+
+
 
 ## Token
 
@@ -64,6 +85,8 @@ Package Name                                                                  |V
 9. Create a new file name `.env`
 10. Open `.env` with any editor and input `DISCORD_TOKEN=<your token here>`
 11. Save & Close the file and run it. [How To Run](#How-To-Use)
+
+
 
 ## Permission
 
@@ -83,6 +106,8 @@ Attach Files               |
 Read Message History       |
 Connect                    |
 Speak                      |
+
+
 
 ## Prefix Setup
 
