@@ -1,5 +1,4 @@
 __pycache__/
-venv/
 build/
 Makefile
 setup.py
