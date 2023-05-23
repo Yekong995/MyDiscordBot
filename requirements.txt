@@ -19,10 +19,10 @@ multidict==6.0.4
 nsfw-dl==0.4.1
 packaging==23.1 ; python_version >= '3.7'
 python-dotenv==1.0.0 ; python_version >= '3.8'
-requests==2.30.0
+requests==2.31.0
 soupsieve==2.4.1 ; python_version >= '3.7'
 tqdm==4.65.0
-typing-extensions==4.5.0
+typing-extensions==4.6.0
 urllib3==2.0.2 ; python_version >= '3.7'
 yarl==1.9.2
 youtube-dl==2021.12.17
