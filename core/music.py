@@ -20,7 +20,7 @@ class Music(commands.Cog):
     def __init__(self, bot):
         self.client = bot
         self.playlist = []
-        self.file = discord.File("../image/youtube.png", filename="youtube.png")
+        self.file = discord.File("./image/youtube.png", filename="youtube.png")
 
     @commands.command(pass_context=True, name="Play", aliases=['play'], help="Plays a song")
     async def play(self, ctx, *, name):
@@ -128,36 +128,37 @@ class Music(commands.Cog):
             await ctx.send("I am not connected to a voice channel")
         log.info(ctx.author, "Run command Now_playing")
 
-    @commands.command(pass_context=True, name="Volume", aliases=['volume'], help="Changes the volume")
-    async def volume(self, ctx, *, volume):
+    # TODO: Fix volume command (not working)
+    # @commands.command(pass_context=True, name="Volume", aliases=['volume'], help="Changes the volume")
+    # async def volume(self, ctx: commands.Context, *, volume):
 
-        """
-        Changes the volume.
-        """
+    #     """
+    #     Changes the volume.
+    #     """
 
-        try:
-            server = ctx.message.guild.voice_client
-            server.source.volume = float(volume) / 100
-            await ctx.send("**" + "Changed the volume to " + volume + "**")
-        except AttributeError:
-            await ctx.send("I am not connected to a voice channel")
-        log.info(ctx.author, "Run command Volume")
+    #     try:
+    #         server = ctx.message.guild.voice_client
+    #         server.source.volume = float(volume) / 100
+    #         await ctx.send("**" + "Changed the volume to " + volume + "**")
+    #     except AttributeError:
+    #         await ctx.send("I am not connected to a voice channel")
+    #     log.info(ctx.author, "Run command Volume")
 
-    @volume.error
-    async def volume_error(self, ctx, error):
+    # @volume.error
+    # async def volume_error(self, ctx, error):
 
-        """
-        Error handler for volume.
-        """
+    #     """
+    #     Error handler for volume.
+    #     """
 
-        if isinstance(error, commands.MissingRequiredArgument):
-            await ctx.send("**Please specify a volume**")
-        else:
-            await ctx.send("**An error occurred**")
-            print(error)
+    #     if isinstance(error, commands.MissingRequiredArgument):
+    #         await ctx.send("**Please specify a volume**")
+    #     else:
+    #         await ctx.send("**An error occurred**")
+    #         print(error)
 
     @commands.command(pass_context=True, name="Join", aliases=['join'], help="Joins the voice channel")
-    async def join(self, ctx):
+    async def join(self, ctx: commands.Context):
 
         """
         Joins the voice channel.
@@ -170,6 +171,16 @@ class Music(commands.Cog):
         else:
             await ctx.send("You are not connected to a voice channel")
         log.info(ctx.author, "Run command Join")
+
+    @join.error
+    async def join_error(self, ctx, error):
+            
+            """
+            Error handler for join.
+            """
+    
+            ctx.send("**An error occurred**")
+            print(error)
 
     @commands.command(pass_context=True, name="Leave", aliases=['disconnect', 'leave'], help="Leaves the voice channel")
     async def leave(self, ctx):
