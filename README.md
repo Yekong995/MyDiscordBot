@@ -2,8 +2,6 @@
 
 ## Description
 
-[![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
-
 This is a Discord bot that I made for fun. It is a work in progress, and I will be adding more features as I go.
 
 For requirements, please refer to [Requirements](#Requirements).
