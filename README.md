@@ -8,15 +8,15 @@ This Discord bot is a project made by me during self learning Python.
 
 ## Table Content
 
-> [Requirements](#Requirements)
+> [Requirements](#requirements)
 >
-> [How To Use](#How-To-Use)
+> [How To Use](#how-to-use)
 >
-> [Setup Token](#Token)
+> [Setup Token](#token)
 >
-> [Setup Prefix](#Setup-Prefix)
+> [Setup Prefix](#setup-prefix)
 >
-> [Get Command](#Get-Command)
+> [Get Command](#get-command)
 
 
 
