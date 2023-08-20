@@ -2,44 +2,21 @@
 
 ## Description
 
-This is a Discord bot that I made for fun. It is a work in progress, and I will be adding more features as I go.
-
-For requirements, please refer to [Requirements](#Requirements).
-
-For using, please refer to [How To Use](#How-To-Use).
-
-How to setup token. Please refer to [Setup Token](#Token).
-
-Bot default prefix `>`. How to change prefix. -> [Prefix Setup](#Prefix-Setup)
+This Discord bot is a project made by me during self learning Python.
 
 
 
-## How To Use
+## Table Content
 
-OS      |Python Version
---------|---------------
-Windows |Python3.8+
-Linux   |Python3 <br>Use command `sudo apt install python3`
-
-> NOTE: Linux user please use `sudo apt install python3-pip` to install pip3 before use it.
-
-```bash
-pip install -U -r requirements.txt
-python main.py
-```
-
-### Virtual Environment
-
-```bash
-pip install -U pipenv
-pipenv update
-pipenv shell # This will let you enter virtual environment, enter exit to exit this virtual environment
-python main.py
-```
-
-
-
-
+> [Requirements](#Requirements)
+>
+> [How To Use](#How-To-Use)
+>
+> [Setup Token](#Token)
+>
+> [Setup Prefix](#Setup-Prefix)
+>
+> [Get Command](#Get-Command)
 
 
 
@@ -49,22 +26,62 @@ python main.py
 > - [PIP](https://pip.pypa.io/en/stable/installation/)
 > - [FFMPEG](https://ffmpeg.org/download.html)
 
-All the requirements package:
+**Linux (Using dnf)**
 
-Package Name                                                                  |Version
-:-----------------------------------------------------------------------------|:------
-[Discord.py](https://discordpy.readthedocs.io/en/latest/intro.html#installing)|2.1.0+
-[youtube_dl](https://pypi.org/project/youtube_dl)                             |2021.12.0+
-[pyotp](https://pypi.org/project/pyotp/) |2.6.0+
-[aiohttp](https://pypi.org/project/aiohttp/)                                  |3.7.4.post0+
-[async_timeout](https://pypi.org/project/async-timeout/)                      |3.0.1+
-[attr](https://pypi.org/project/attrs/)                                       |21.2.0+
-[chardet](https://pypi.org/project/chardet/)                                  |4.0.0+
-[multidict](https://pypi.org/project/multidict/)                              |5.1.0+
-[typing_extensions](https://pypi.org/project/typing-extensions/)              |4.0.0+
-[yarl](https://pypi.org/project/yarl/)                                        |1.6.3+
-[requests](https://pypi.org/project/requests/)                                |2.26.0+
-[environs](https://pypi.org/project/environs/)                                |9.3.4+ 
+```bash
+sudo dnf install ffmpeg-free -y
+```
+
+**Linux (Using apt)**
+
+```bash
+sudo apt install ffmpeg -y
+```
+
+
+
+## How To Use
+
+OS      |Python Version
+--------|---------------
+Windows |Python3.8+
+Linux   |Python3
+
+### Windows
+
+```bash
+pip install -r requirements.txt -U
+python main.py
+```
+
+### Linux (Using apt)
+
+```bash
+sudo apt update && sudo apt upgrade -y
+sudo apt install python3 python3-pip -y
+pip install -r requirements.txt -U
+python3 main.py
+```
+
+### Linux (Using dnf)
+
+```bash
+sudo dnf updateinfo && sudo dnf upgrade -y
+sudo dnf install python3 python3-pip -y
+pip install -r requirements.txt -U
+python3 main.py
+```
+
+
+
+### Virtual Environment
+
+```bash
+pip install -U pipenv
+pipenv sync
+pipenv shell # This will let you enter virtual environment, enter exit to exit virtual environment
+python main.py
+```
 
 
 
@@ -80,9 +97,9 @@ Package Name                                                                  |V
 6. Go to `OAuth2` option and go to `URL Generator`
 7. In the scopes select `bot`
 8. Go down select `Administrator` (Recommended) else see [Permission](#Permission) to choices
-9. Create a new file name `.env`
-10. Open `.env` with any editor and input `DISCORD_TOKEN=<your token here>`
-11. Save & Close the file and run it. [How To Run](#How-To-Use)
+9. Create a new file name `.env` or change filename `.env.template` to `.env`
+10. Open `.env` with any editor you love and input `DISCORD_TOKEN=<your token here>`
+11. Save & Close the file after edited [How To Use](#How-To-Use)
 
 
 
@@ -107,14 +124,16 @@ Speak                      |
 
 
 
-## Prefix Setup
+## Setup Prefix
 
-Change `command_prefix="<your_prefix_here>"` in line 21 like this:
+Change `command_prefix="<your_prefix_here>"` in line 26 like this:
 
-    21| client = Bot(command_prefix=">", intents=intents, description="My Command List")
+    26| client = Bot(command_prefix=">", intents=intents, description="My Command List")
 
-### In Discord Usage
+
+
+## Get Command
 
 Type `>help` to show all the commands. (Commands will be displayed based on permissions)
 
-> NOTE: If you change your prefix do like this `<your_prefix>help`
+> NOTE: If you change your prefix please change `>` to the prefix you set
