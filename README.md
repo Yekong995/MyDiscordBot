@@ -126,7 +126,7 @@ Speak                      |
 
 ## Setup Prefix
 
-Change `command_prefix="<your_prefix_here>"` in line 26 like this:
+Change `command_prefix="<your_prefix_here>"` in file `main.py` line 26
 
     26| client = Bot(command_prefix=">", intents=intents, description="My Command List")
 
