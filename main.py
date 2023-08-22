@@ -61,7 +61,7 @@ async def on_message(message):
 
     if url_regex.search(message.content):
         url = url_regex.search(message.content).group(1)
-        result = detect_url(url)
+        result = detect_url(url, google_api_key)
         if result is not False:
             embed = discord.Embed()
             embed.add_field(name="URL Detected", value="警告请不要散播有害链接，你的消息将被删除", inline=False)
