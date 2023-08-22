@@ -8,10 +8,7 @@ def get_token() -> str:
     return env.str("DISCORD_TOKEN")
 
 
-def detect_url(message: str):
-    env = Env()
-    env.read_env()
-    apikey = env.str("GOOGLE_SAFE_BROWSING_API_KEY")
+def detect_url(message: str, apikey: str = None):
     api_url = "https://safebrowsing.googleapis.com/v4/threatMatches:find"
     content_json = {
         "client": {
