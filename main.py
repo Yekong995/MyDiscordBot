@@ -16,7 +16,7 @@ from core.function.logger import LogCommand
 # import cogs
 from core.channel import Channel
 from core.moderation import Moderation
-from core.music import Music # youtube-dl is not working, so temporarily disable music
+# from core.music import Music # youtube-dl is not working, so temporarily disable music
 from core.nsfw import R18
 
 # Bot token
@@ -70,7 +70,7 @@ async def main_entry():
     async with client:
         await client.add_cog(Channel(client))
         # youtube-dl is not working, so temporarily disable music
-        await client.add_cog(Music(client))
+        # await client.add_cog(Music(client))
         await client.add_cog(Moderation(client))
         await client.add_cog(R18(client))
         await client.start(MyToken)
