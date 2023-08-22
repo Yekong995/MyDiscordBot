@@ -16,7 +16,7 @@ from core.function.logger import LogCommand
 # import cogs
 from core.channel import Channel
 from core.moderation import Moderation
-# from core.music import Music # youtube-dl is not working, so temporarily disable music
+from core.music import Music # youtube-dl is not working, so temporarily disable music
 from core.nsfw import R18
 
 # Bot token
@@ -38,15 +38,6 @@ is_google_api_key_set = False if google_api_key == "" else True
 if is_google_api_key_set is False:
     log.warn("BOT", "Google Safe Browsing API key is not set, bot stop scanning message")
 
-def require_google_api_key(func):
-    @wraps(func)
-    async def wrapper(*args, **kwargs):
-        if is_google_api_key_set is False:
-            return
-        else:
-            return await func(*args, **kwargs)
-    return wrapper
-
 @client.event
 async def on_ready():
     activity = discord.Game(name=">help", type=3)
@@ -54,23 +45,23 @@ async def on_ready():
     print("Bot is ready")
 
 @client.event
-@require_google_api_key
 async def on_message(message):
     if message.author == client.user:
         return
 
-    if url_regex.search(message.content):
-        url = url_regex.search(message.content).group(1)
-        result = detect_url(url, google_api_key)
-        if result is not False:
-            embed = discord.Embed()
-            embed.add_field(name="URL Detected", value="警告请不要散播有害链接，你的消息将被删除", inline=False)
-            embed.set_footer(text="Oren Bot")
-            embed.color = discord.Color.red()
-            embed.timestamp = datetime.utcnow()
-            await message.delete()
-            await message.channel.send(embed=embed)
-            log.warn(message.author, "Sent a harmful link")
+    if is_google_api_key_set is True:
+        if url_regex.search(message.content):
+            url = url_regex.search(message.content).group(1)
+            result = detect_url(url, google_api_key)
+            if result is not False:
+                embed = discord.Embed()
+                embed.add_field(name="URL Detected", value="警告请不要散播有害链接，你的消息将被删除", inline=False)
+                embed.set_footer(text="Oren Bot")
+                embed.color = discord.Color.red()
+                embed.timestamp = datetime.utcnow()
+                await message.delete()
+                await message.channel.send(embed=embed)
+                log.warn(message.author, "Sent a harmful link")
     else:
         await client.process_commands(message)
 
@@ -79,7 +70,7 @@ async def main_entry():
     async with client:
         await client.add_cog(Channel(client))
         # youtube-dl is not working, so temporarily disable music
-        # await client.add_cog(Music(client))
+        await client.add_cog(Music(client))
         await client.add_cog(Moderation(client))
         await client.add_cog(R18(client))
         await client.start(MyToken)
