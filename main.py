@@ -8,6 +8,8 @@ import sys
 import discord
 from datetime import datetime
 from discord.ext.commands import Bot
+from environs import Env
+from functools import wraps
 from func import get_token, detect_url
 from core.function.logger import LogCommand
 
@@ -28,6 +30,22 @@ url_regex = re.compile(r'(https?://\S+)')
 
 log = LogCommand()
 
+google_api_key = Env()
+google_api_key.read_env()
+google_api_key = google_api_key.str("GOOGLE_SAFE_BROWSING_API_KEY")
+is_google_api_key_set = False if google_api_key == "" else True
+
+if is_google_api_key_set is False:
+    log.warn("BOT", "Google Safe Browsing API key is not set, bot stop scanning message")
+
+def require_google_api_key(func):
+    @wraps(func)
+    async def wrapper(*args, **kwargs):
+        if is_google_api_key_set is False:
+            return
+        else:
+            return await func(*args, **kwargs)
+    return wrapper
 
 @client.event
 async def on_ready():
@@ -36,6 +54,7 @@ async def on_ready():
     print("Bot is ready")
 
 @client.event
+@require_google_api_key
 async def on_message(message):
     if message.author == client.user:
         return
