@@ -128,34 +128,33 @@ class Music(commands.Cog):
             await ctx.send("I am not connected to a voice channel")
         log.info(ctx.author, "Run command Now_playing")
 
-    # TODO: Fix volume command (not working)
-    # @commands.command(pass_context=True, name="Volume", aliases=['volume'], help="Changes the volume")
-    # async def volume(self, ctx: commands.Context, *, volume):
+    @commands.command(pass_context=True, name="Volume", aliases=['volume'], help="Changes the volume")
+    async def volume(self, ctx: commands.Context, *, volume):
 
-    #     """
-    #     Changes the volume.
-    #     """
+        """
+        Changes the volume.
+        """
 
-    #     try:
-    #         server = ctx.message.guild.voice_client
-    #         server.source.volume = float(volume) / 100
-    #         await ctx.send("**" + "Changed the volume to " + volume + "**")
-    #     except AttributeError:
-    #         await ctx.send("I am not connected to a voice channel")
-    #     log.info(ctx.author, "Run command Volume")
+        try:
+            server = ctx.message.guild.voice_client
+            server.source.volume = float(volume) / 100
+            await ctx.send("**" + "Changed the volume to " + volume + "**")
+        except AttributeError:
+            await ctx.send("I am not connected to a voice channel")
+        log.info(ctx.author, "Run command Volume")
 
-    # @volume.error
-    # async def volume_error(self, ctx, error):
+    @volume.error
+    async def volume_error(self, ctx, error):
 
-    #     """
-    #     Error handler for volume.
-    #     """
+        """
+        Error handler for volume.
+        """
 
-    #     if isinstance(error, commands.MissingRequiredArgument):
-    #         await ctx.send("**Please specify a volume**")
-    #     else:
-    #         await ctx.send("**An error occurred**")
-    #         print(error)
+        if isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send("**Please specify a volume**")
+        else:
+            await ctx.send("**An error occurred**")
+            print(error)
 
     @commands.command(pass_context=True, name="Join", aliases=['join'], help="Joins the voice channel")
     async def join(self, ctx: commands.Context):
