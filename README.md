@@ -4,6 +4,8 @@
 
 This Discord bot is a project made by me during self learning Python.
 
+**If you need using music function please download `ffmpeg` and add it to path before using music command otherwise it will no effect**
+
 
 
 ## Table Content
