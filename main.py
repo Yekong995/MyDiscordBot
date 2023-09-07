@@ -9,14 +9,13 @@ import discord
 from datetime import datetime
 from discord.ext.commands import Bot
 from environs import Env
-from functools import wraps
 from func import get_token, detect_url
 from core.function.logger import LogCommand
 
 # import cogs
 from core.channel import Channel
 from core.moderation import Moderation
-# from core.music import Music # youtube-dl is not working, so temporarily disable music
+from core.music import Music
 from core.nsfw import R18
 
 # Bot token
@@ -69,8 +68,7 @@ async def on_message(message):
 async def main_entry():
     async with client:
         await client.add_cog(Channel(client))
-        # youtube-dl is not working, so temporarily disable music
-        # await client.add_cog(Music(client))
+        await client.add_cog(Music(client))
         await client.add_cog(Moderation(client))
         await client.add_cog(R18(client))
         await client.start(MyToken)
