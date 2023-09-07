@@ -78,6 +78,8 @@ elif platform.system() == "Linux":
     ffmpeg_name = "ffmpeg"
 elif platform.system() == "Darwin":
     ffmpeg_name = "ffmpeg"
+else:
+    ffmpeg_name = None
 
 async def main_entry():
     async with client:
@@ -88,6 +90,7 @@ async def main_entry():
             await client.add_cog(Music(client))
         else:
             log.warn("BOT", "ffmpeg is not installed, music function is disabled")
+            assert which(ffmpeg_name) is not True, "ffmpeg is not installed"
         await client.start(MyToken)
 
 # singal handler
@@ -99,4 +102,7 @@ def main():
     signal.signal(signal.SIGINT, signal_handler)
     asyncio.run(main_entry())
 
-main()
+assert ffmpeg_name is not None, "ffmpeg_name is None"
+
+if __name__ == "__main__":
+    main()
