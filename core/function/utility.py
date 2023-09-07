@@ -12,7 +12,6 @@ def which(exe_name: str) -> bool:
     fpath = os.environ["PATH"].split(os.pathsep)
     for path in fpath:
         exe_file = os.path.join(path, exe_name)
-        print(exe_file)
         if os.path.isfile(exe_file) and os.access(exe_file, os.X_OK):
             return True
     return False
