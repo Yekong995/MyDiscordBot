@@ -6,11 +6,13 @@ import signal
 import re
 import sys
 import discord
+import platform
 from datetime import datetime
 from discord.ext.commands import Bot
 from environs import Env
 from func import get_token, detect_url
 from core.function.logger import LogCommand
+from core.function.utility import which
 
 # import cogs
 from core.channel import Channel
@@ -61,16 +63,31 @@ async def on_message(message):
                 await message.delete()
                 await message.channel.send(embed=embed)
                 log.warn(message.author, "Sent a harmful link")
+            else:
+                await client.process_commands(message)
+        else:
+            await client.process_commands(message)
     else:
         await client.process_commands(message)
 
 
+ffmpeg_name = "ffmpeg"
+if platform.system() == "Windows":
+    ffmpeg_name = "ffmpeg.exe"
+elif platform.system() == "Linux":
+    ffmpeg_name = "ffmpeg"
+elif platform.system() == "Darwin":
+    ffmpeg_name = "ffmpeg"
+
 async def main_entry():
     async with client:
         await client.add_cog(Channel(client))
-        await client.add_cog(Music(client))
         await client.add_cog(Moderation(client))
         await client.add_cog(R18(client))
+        if which(ffmpeg_name) is True:
+            await client.add_cog(Music(client))
+        else:
+            log.warn("BOT", "ffmpeg is not installed, music function is disabled")
         await client.start(MyToken)
 
 # singal handler
