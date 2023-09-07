@@ -10,7 +10,7 @@ import platform
 from datetime import datetime
 from discord.ext.commands import Bot
 from environs import Env
-from func import get_token, detect_url
+from func import get_token, detect_url, is_google_api_key_set
 from core.function.logger import LogCommand
 from core.function.utility import which
 
@@ -31,12 +31,12 @@ url_regex = re.compile(r'(https?://\S+)')
 
 log = LogCommand()
 
-google_api_key = Env()
-google_api_key.read_env()
-google_api_key = google_api_key.str("GOOGLE_SAFE_BROWSING_API_KEY")
-is_google_api_key_set = False if google_api_key == "" else True
-
-if is_google_api_key_set is False:
+try:
+    google_safe_browsing_api, google_api_key = is_google_api_key_set()
+except Exception as e:
+    google_api_key = None
+    google_safe_browsing_api = False
+if google_safe_browsing_api is False:
     log.warn("BOT", "Google Safe Browsing API key is not set, bot stop scanning message")
 
 @client.event
