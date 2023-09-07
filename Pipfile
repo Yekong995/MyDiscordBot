@@ -13,7 +13,7 @@ multidict = ">=6.0.4"
 typing-extensions = ">=4.5.0"
 yarl = ">=1.9.2"
 requests = ">=2.29.0"
-youtube_dl = ">=2021.12.17"
+youtube_dl = {git = "https://github.com/ytdl-org/ytdl-nightly.git", ref = "2023.09.07", editable = true}
 nsfw_dl = ">=0.4.1"
 environs = ">=9.5.0"
 colorama = ">=0.4.6"
