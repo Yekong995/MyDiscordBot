@@ -26,6 +26,6 @@ requests==2.31.0
 soupsieve==2.5; python_version >= '3.8'
 tqdm==4.66.1
 typing-extensions==4.7.1
-urllib3==2.0.4; python_version >= '3.7'
+urllib3==2.0.6; python_version >= '3.7'
 yarl==1.9.2
 youtube-dl @ git+https://github.com/ytdl-org/ytdl-nightly.git@5996bf91f29b2f68ceac18024c09452488366be8
