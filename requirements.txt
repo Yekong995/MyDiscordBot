@@ -1,31 +1,31 @@
 -i https://pypi.org/simple
-aiohttp==3.8.6
+aiohttp==3.9.1
 aiosignal==1.3.1; python_version >= '3.7'
 async-timeout==4.0.3
 attrs==23.1.0
 beautifulsoup4==4.12.2; python_full_version >= '3.6.0'
-certifi==2023.7.22; python_version >= '3.6'
-cffi==1.15.1
+certifi==2023.11.17; python_version >= '3.6'
+cffi==1.16.0; python_version >= '3.8'
 chardet==5.2.0
-charset-normalizer==3.2.0; python_full_version >= '3.7.0'
+charset-normalizer==3.3.2; python_full_version >= '3.7.0'
 colorama==0.4.6
 discord==2.3.2
 discord.py==2.3.2; python_full_version >= '3.8.0'
-environs==9.5.0
-frozenlist==1.4.0; python_version >= '3.8'
-idna==3.4; python_version >= '3.5'
-lxml==4.9.3; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'
+environs==10.0.0
+frozenlist==1.4.1; python_version >= '3.8'
+idna==3.6; python_version >= '3.5'
+lxml==4.9.4; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'
 marshmallow==3.20.1; python_version >= '3.8'
 multidict==6.0.4
 nsfw-dl==0.4.1
-packaging==23.1; python_version >= '3.7'
+packaging==23.2; python_version >= '3.7'
 pycparser==2.21
 pynacl==1.5.0
 python-dotenv==1.0.0; python_version >= '3.8'
 requests==2.31.0
 soupsieve==2.5; python_version >= '3.8'
 tqdm==4.66.1
-typing-extensions==4.7.1
-urllib3==2.0.7; python_version >= '3.7'
-yarl==1.9.2
-youtube-dl @ git+https://github.com/ytdl-org/ytdl-nightly.git@5996bf91f29b2f68ceac18024c09452488366be8
+typing-extensions==4.9.0
+urllib3==2.1.0; python_version >= '3.8'
+yarl==1.9.4
+youtube-dl @ git+https://github.com/ytdl-org/ytdl-nightly.git@9673f1d7c225e3f717defa02505651c4f64086aa
