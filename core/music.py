@@ -20,6 +20,7 @@ class Music(commands.Cog):
     def __init__(self, bot):
         self.client = bot
         self.playlist = []
+        self.user_volume = 100
         self.file = discord.File("./image/youtube.png", filename="youtube.png")
 
     @commands.command(pass_context=True, name="Play", aliases=['play'], help="Plays a song")
@@ -44,6 +45,14 @@ class Music(commands.Cog):
                 await ctx.send("**" + "Now playing: " + "**" + urlJson['title'])
         except AttributeError:
             await ctx.send("I am not connected to a voice channel")
+
+        # Auto set music volume to user prefer volume
+        try:
+            server = ctx.message.guild.voice_client
+            server.source.volume = float(self.user_volume) / 100
+        except Exception as e:
+            pass
+
         log.info(ctx.author, "Run command Play")
 
     async def play_next(self, ctx):
@@ -66,6 +75,14 @@ class Music(commands.Cog):
                 await ctx.send("**" + "Playlist is empty" + "**")
         except AttributeError:
             await ctx.send("I am not connected to a voice channel")
+
+        # Auto set music volume to user prefer volume
+        try:
+            server = ctx.message.guild.voice_client
+            server.source.volume = float(self.user_volume) / 100
+        except Exception as e:
+            pass
+        
         log.info(ctx.author, "Run command Play_next")
 
     @commands.command(pass_context=True, name="Pause", aliases=['pause'], help="Pauses the song")
@@ -138,6 +155,7 @@ class Music(commands.Cog):
         try:
             server = ctx.message.guild.voice_client
             server.source.volume = float(volume) / 100
+            self.user_volume = volume
             await ctx.send("**" + "Changed the volume to " + volume + "**")
         except AttributeError:
             await ctx.send("I am not connected to a voice channel")
@@ -209,7 +227,7 @@ class Music(commands.Cog):
             if self.playlist:
                 embed = discord.Embed(title="Oren's Playlist", color=0x00ff00)
                 embed.set_author(name=self.client.user.name)
-                embed.timestamp = datetime.utcnow()
+                embed.timestamp = datetime.datetime.now()
                 embed.set_footer(text="Requested by " + ctx.message.author.name)
                 embed.set_thumbnail(url="attachment://youtube.png")
                 num = 1
