@@ -9,7 +9,6 @@ import discord
 import platform
 from datetime import datetime
 from discord.ext.commands import Bot
-from environs import Env
 from func import get_token, detect_url, is_google_api_key_set
 from core.function.logger import LogCommand
 from core.function.utility import which
@@ -50,23 +49,20 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    if is_google_api_key_set is True:
-        if url_regex.search(message.content):
+    if google_safe_browsing_api and url_regex.search(message.content) is not None:
             url = url_regex.search(message.content).group(1)
             result = detect_url(url, google_api_key)
-            if result is not False:
+            if result:
                 embed = discord.Embed()
-                embed.add_field(name="URL Detected", value="警告请不要散播有害链接，你的消息将被删除", inline=False)
+                embed.add_field(name="URL Detected", value="Found a harmful link", inline=False)
                 embed.set_footer(text="Oren Bot")
                 embed.color = discord.Color.red()
-                embed.timestamp = datetime.utcnow()
+                embed.timestamp = datetime.now()
                 await message.delete()
                 await message.channel.send(embed=embed)
                 log.warn(message.author, "Sent a harmful link")
             else:
                 await client.process_commands(message)
-        else:
-            await client.process_commands(message)
     else:
         await client.process_commands(message)
 
@@ -86,11 +82,10 @@ async def main_entry():
         await client.add_cog(Channel(client))
         await client.add_cog(Moderation(client))
         await client.add_cog(R18(client))
-        if which(ffmpeg_name) is True:
+        if which(ffmpeg_name):
             await client.add_cog(Music(client))
         else:
             log.warn("BOT", "ffmpeg is not installed, music function is disabled")
-            assert which(ffmpeg_name) is not True, "ffmpeg is not installed"
         await client.start(MyToken)
 
 # singal handler
@@ -102,7 +97,6 @@ def main():
     signal.signal(signal.SIGINT, signal_handler)
     asyncio.run(main_entry())
 
-assert ffmpeg_name is not None, "ffmpeg_name is None"
 
 if __name__ == "__main__":
     main()
