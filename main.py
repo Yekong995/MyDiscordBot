@@ -25,7 +25,8 @@ MyToken = get_token()
 intents = discord.Intents.all()
 
 # description & command_prefix
-client = Bot(command_prefix=">", intents=intents, description="My Command List")
+prefix = ">"
+client = Bot(command_prefix=prefix, intents=intents, description="My Command List")
 url_regex = re.compile(r'(https?://\S+)')
 
 log = LogCommand()
@@ -40,7 +41,7 @@ if google_safe_browsing_api is False:
 
 @client.event
 async def on_ready():
-    activity = discord.Game(name=">help", type=3)
+    activity = discord.Game(name=f"{prefix}help", type=3)
     await client.change_presence(status=discord.Status.idle, activity=activity)
     print("Bot is ready")
 
